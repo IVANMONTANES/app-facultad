@@ -1,0 +1,146 @@
+﻿/* login.css */
+
+/* Paleta de colores oscuros */
+:root {
+    --color-fondo: #121212;
+    --color-header: #1f1f1f;
+    --color-texto: #e0e0e0;
+    --color-acento: #4cafef; /* Azul suave para botones o detalles */
+    --color-input-bg: #1a1a1a;
+    --color-input-border: #333;
+    --color-flash: #ff4c4c;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background-color: var(--color-header);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Centrar login */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+section {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+section h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* Inputs y labels */
+form div {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: 5px;
+    color: var(--color-texto);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="password"]:focus {
+    border-color: var(--color-acento);
+}
+
+label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -0.6rem;
+    left: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--color-acento);
+    background-color: #1a1a1a;
+    padding: 0 0.2rem;
+}
+
+/* Botón */
+input[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-acento);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #3390ff;
+}
+
+/* Mensajes flash */
+.flash-message {
+    background-color: var(--color-flash);
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    section {
+        padding: 1.5rem;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+}

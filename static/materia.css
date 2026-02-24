@@ -1,0 +1,128 @@
+﻿/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== NAV PRINCIPAL ===== */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    background-color: #1F1F1F;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.main-nav a:hover {
+    background-color: #6C63FF;
+    color: #fff;
+}
+
+/* ===== HEADER ===== */
+header {
+    background-color: #1F1F1F;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    color: #fff;
+}
+
+/* ===== MAIN ===== */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* ===== NOMBRE DE LA MATERIA ===== */
+.materia-titulo {
+    color: #2E5AAC;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* ===== CARDS CONTAINER ===== */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px; /* espacio entre cajas */
+    width: 100%;
+    max-width: 700px;
+}
+
+/* ===== CADA CAJA ===== */
+.card {
+    background-color: #ffffff;  /* blanco tipo hoja */
+    padding: 60px 0;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    flex: 1 1 300px;
+    max-width: 320px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2E5AAC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width: 800px){
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; /* importante para links */
+    color: #2E5AAC;        /* texto igual que antes */
+    cursor: pointer;
+}

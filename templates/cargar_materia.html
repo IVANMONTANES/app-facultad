@@ -7,17 +7,38 @@
 </head>
 <body>
 
+    <!-- NAV PARA NAVEGACIÓN -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/panel">Panel</a></li>
+                <li><a href="/cargar-materia">Cargar Materia</a></li>
+                <li><a href="/ver-materias">Ver Materias</a></li>
+            </ul>
+        </nav>
+
+
     <header>
         <h1>FACULTAD ORGANIZACION</h1>
     </header>
 
     <main>
-
+        {% with messages = get_flashed_messages(with_categories = false) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="flash-wrapper">
+                                <div class="flash-message">
+                                    <p>{{ message }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                {% endwith %}
         <section class="form-container">
 
-            <h2>Cargar Nueva Materia</h2>
+            
 
-            <form action="/cargar_materia" method="POST" enctype="multipart/form-data">
+            <form action="/crear-materia" method="POST" enctype="multipart/form-data">
+                <h2>Cargar Nueva Materia</h2>
 
                 <div class="input-group">
                     <label>Nombre de la materia *</label>
@@ -27,11 +48,6 @@
                 <div class="input-group">
                     <label>Descripción (opcional)</label>
                     <textarea name="descripcion" rows="4"></textarea>
-                </div>
-
-                <div class="input-group">
-                    <label>Foto (opcional)</label>
-                    <input type="file" name="foto" accept="image/*">
                 </div>
 
                 <div class="input-group">

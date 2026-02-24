@@ -1,0 +1,154 @@
+﻿/* ver_materias.css */
+
+/* Paleta y tipografía */
+:root {
+    --color-fondo: #121212;
+    --color-header: #1f1f1f;
+    --color-nav: #1a1a1a;
+    --color-texto: #e0e0e0;
+    --color-acento: #4cafef;
+    --color-flash: #ff4c4c;
+    --color-card-bg: #1a1a1a; /* base de la hoja */
+    --color-card-linea: #2c2c2c; /* lineas estilo rayado */
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAV */
+nav.main-nav {
+    background-color: var(--color-nav);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav.main-nav a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s;
+    border-radius: 5px;
+}
+
+nav.main-nav a:hover {
+    background-color: var(--color-acento);
+    color: #fff;
+}
+
+/* HEADER */
+header {
+    background-color: var(--color-header);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* MAIN */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Contenedor de materias */
+.materias-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem; /* espacio entre filas y columnas */
+    width: 80%; /* ancho total de la fila */
+}
+
+/* Card individual */
+.materia-card {
+    background-color: var(--color-card-bg);
+    width: calc(50% - 1rem); /* dos por fila, con gap */
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+    text-decoration: none;
+    color: var(--color-texto);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+
+    /* efecto de hoja rayada */
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 20px,
+        rgba(255,255,255,0.05) 21px
+    );
+}
+
+/* Nombre de la materia destacado */
+.materia-nombre {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+/* Subrayado parcial para resaltar el nombre */
+.materia-nombre::after {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 3px;
+    background-color: var(--color-acento);
+    margin: 0.3rem auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Info de la materia */
+.materia-info {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: #cfcfcf;
+    line-height: 1.4;
+}
+
+.materia-info strong {
+    display: inline-block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: var(--color-acento);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .materia-card {
+        width: 80%; /* una sola por fila en pantallas pequeñas */
+    }
+}

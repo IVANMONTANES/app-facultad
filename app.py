@@ -1,5 +1,8 @@
 ﻿from flask import Flask, render_template, request, flash, redirect, session
 import os
+from funciones import db
+
+
 
 app = Flask(__name__)
 app.secret_key = "clave_super_secreta"
@@ -15,10 +18,23 @@ def get_login():
 
 @app.route("/panel")
 def get_panel():
-    return render_template("panel.html")
-
+    if "logueado" in session:
+        return render_template("panel.html")
+    else:
+        flash("debe loguearse primero")
+        return redirect("/")
+    
+@app.route("/cargar-materia")
+def get_cargar_materia():
+    if "logueado" in session:
+        return render_template("cargar_materia.html")
+    else:
+        flash("no esta logueado")
+        return redirect("/")
+    
 @app.route("/")
 def get_index():
+
     if "logueado" in session:
         return redirect("/panel")
     else:
@@ -63,6 +79,41 @@ def login() -> None:
     else:
         flash("contraseña incorrecta")
         return redirect("/")
+    
+# crear materia
+@app.route("/crear-materia", methods = ["POST"])
+def crear_materia() -> None:
+    # recuperamos los datos cargados en el formulario #
+    nombre = request.form["nombre"]
+    descripcion = request.form["descripcion"]
+    if not descripcion:
+        descripcion = None
+    carga = int(request.form["carga"])
+
+    # creamos la tabla si es que no existe #
+    db.crear_tabla()
+    # agregamos la materia a la base de datos #
+    db.insertar_materia(nombre,descripcion,carga)
+    # volvemos a la pagina de crear la materia
+    flash(f"se creo la materia {nombre}")
+    return redirect("/cargar-materia")
+
+@app.route("/ver-materias")
+def get_ver_materias():
+    if "logueado" in session:
+        # obtenemos la lista con las materias
+        listaMaterias = db.obtener_materias()
+        return render_template("ver_materias.html",materias = listaMaterias)
+    else:
+        flash("no esta logueado")
+        return redirect("/")
+    
+
+
+
+
+
+
     
 
 

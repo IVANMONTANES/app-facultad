@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Materia</title>
+    <link rel="stylesheet" href="../static/materia.css">
+</head>
+<body>
+
+    <!-- NAV PRINCIPAL -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/panel">Panel</a></li>
+            <li><a href="/cargar-materia">Cargar Materia</a></li>
+            <li><a href="/ver-materias">Ver Materias</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <h1>FACULTAD ORGANIZACION</h1>
+    </header>
+    
+    <main>
+        <!-- NOMBRE DE LA MATERIA -->
+        <h2 class="materia-titulo">{{ materia.nombre }}</h2>
+
+        <!-- CAJAS INTERACTIVAS -->
+        <div class="cards-container">
+            <a href="/horarios" class="card">Horarios</a>
+            <a href="/estudio" class="card">Estudio</a>
+        </div>
+    </main>
+
+</body>
+</html>

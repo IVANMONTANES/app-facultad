@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Materias</title>
+    <link rel="stylesheet" href="../static/ver_materias.css">
+</head>
+<body>
+
+    <!-- NAV PARA NAVEGACIÓN -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/panel">Panel</a></li>
+                <li><a href="/cargar-materia">Cargar Materia</a></li>
+                <li><a href="/ver-materias">Ver Materias</a></li>
+            </ul>
+        </nav>
+
+    <header>
+        <h1>FACULTAD ORGANIZACIÓN</h1>
+    </header>
+
+<main>
+    <!-- CONTENEDOR DE MATERIAS -->
+    <section class="materias-container">
+        {% for materia in materias %}
+        <a href="/detalle-materia/{{ materia.id }}" class="materia-card">
+            <!-- Nombre de la materia -->
+            <h3 class="materia-nombre">{{ materia.nombre }}</h3>
+
+            <!-- Descripción -->
+            <div class="materia-info">
+                <strong>Descripción:</strong>
+                <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
+            </div>
+
+            <!-- Carga semanal -->
+            <div class="materia-info">
+                <strong>Carga semanal:</strong>
+                <p>{{ materia.carga }} hs</p>
+            </div>
+        </a>
+        {% endfor %}
+    </section>
+</main>
+
+</body>
+</html>
