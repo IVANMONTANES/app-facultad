@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INICIAR SESION</title>
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+<body>
+    <header>
+        <h1>FACULTAD ORGANIZACION</h1>
+    </header>
+    
+    <main>
+        <section>
+            <form action="/login-user" method="post">
+                <h3>Login</h3>
+                {% with messages = get_flashed_messages(with_categories = false) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="flash-message">
+                                <p>{{ message }}</p>
+                            </div>
+                            
+                            {% endfor %}
+                        {% endif %}
+                {% endwith %}
+                <div>
+                    
+                    <input type="password" name="password" id="password">
+                    <label for="password">Ingrese La Contraseña</label>
+                </div>
+
+                <div>
+                    <input type="submit" value="INGRESAR">
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

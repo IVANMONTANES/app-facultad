@@ -1,0 +1,116 @@
+﻿/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+header {
+    background-color: #1F1F1F;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* ===== MAIN ===== */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== CONTENEDOR FORM ===== */
+.form-container {
+    background: linear-gradient(145deg, #1F1F1F, #26264D);
+    padding: 40px;
+    width: 400px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(108, 99, 255, 0.3);
+    animation: fadeUp 0.5s ease;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* ===== INPUT GROUP ===== */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #CFCFCF;
+}
+
+input, textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #1A1A1A;
+    color: #E0E0E0;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #6C63FF;
+    box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+}
+
+/* ===== BOTON ===== */
+.btn-guardar {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(145deg, #6C63FF, #5848E5);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-guardar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(108, 99, 255, 0.5);
+}
+
+/* ===== ANIMACION ===== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width: 500px) {
+    .form-container {
+        width: 90%;
+    }
+}

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANEL</title>
+    <link rel="stylesheet" href="../static/panel.css">
+</head>
+<body>
+    <header>
+        <h1>FACULTAD ORGANIZACION</h1>
+    </header>
+    
+    <main>
+        
+            {% with messages = get_flashed_messages(with_categories = false) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="flash-message">
+                        <p>{{ message }}</p>
+                    </div>   
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        
+        <section class="cards-container">
+            
+            <div class="card">
+                <h3>Cargar Materia</h3>
+                <p>Agregar una nueva materia al sistema</p>
+            </div>
+
+            <div class="card">
+                <h3>Ver Materias</h3>
+                <p>Consultar materias ya registradas</p>
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cargar Materia</title>
+    <link rel="stylesheet" href="../static/cargar_materia.css">
+</head>
+<body>
+
+    <header>
+        <h1>FACULTAD ORGANIZACION</h1>
+    </header>
+
+    <main>
+
+        <section class="form-container">
+
+            <h2>Cargar Nueva Materia</h2>
+
+            <form action="/cargar_materia" method="POST" enctype="multipart/form-data">
+
+                <div class="input-group">
+                    <label>Nombre de la materia *</label>
+                    <input type="text" name="nombre" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Descripción (opcional)</label>
+                    <textarea name="descripcion" rows="4"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Foto (opcional)</label>
+                    <input type="file" name="foto" accept="image/*">
+                </div>
+
+                <div class="input-group">
+                    <label>Carga semanal (horas) *</label>
+                    <input type="number" name="carga" min="1" required>
+                </div>
+
+                <button type="submit" class="btn-guardar">
+                    Guardar Materia
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
