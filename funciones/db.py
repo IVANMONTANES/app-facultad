@@ -23,15 +23,34 @@ def insertar_materia(nombre: str, descripcion: str, carga: int) -> None:
 """,(nombre,descripcion,carga))
         con.commit()
 
+def obtener_materia_por_id(id: int) -> Materia:
+    with sqlite3.connect(ruta) as con:
+        cursor = con.cursor()
+        cursor.execute("""
+            SELECT * FROM MATERIAS where id_materia = ?
+
+""",(id,))
+        materiaTupla = cursor.fetchone()
+        if materiaTupla is None:
+            return None
+        
+        # desempaquetado de la tupla #
+        materia_id,materia_nombre,materia_descripcion,materia_carga = materiaTupla
+
+        # instanciamos la materia #
+        materia_traida = Materia(materia_id,materia_nombre,materia_descripcion,materia_carga)
+
+        # retornamos la materia #
+        return materia_traida
+
 def obtener_materias():
     with sqlite3.connect(ruta) as con:
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
         cursor.execute("""
-            SELECT nombre,descripcion,carga_semanal FROM materias""")
+            SELECT * FROM materias""")
         materias = cursor.fetchall()
-
-        listaMaterias = [Materia(materiaFila["nombre"],materiaFila["descripcion"],materiaFila["carga_semanal"]) for materiaFila in materias]
+        listaMaterias = [Materia(materiaFila["id_materia"],materiaFila["nombre"],materiaFila["descripcion"],materiaFila["carga_semanal"]) for materiaFila in materias]
         return listaMaterias
     
         

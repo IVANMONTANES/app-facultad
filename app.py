@@ -103,10 +103,22 @@ def get_ver_materias():
     if "logueado" in session:
         # obtenemos la lista con las materias
         listaMaterias = db.obtener_materias()
+
         return render_template("ver_materias.html",materias = listaMaterias)
     else:
         flash("no esta logueado")
         return redirect("/")
+    
+@app.route("/materia/<int:id_materia>")
+def get_materia(id_materia):
+    if "logueado" in session:
+        # obtenemos la materia por el id
+        materia_con_id = db.obtener_materia_por_id(id_materia)
+        return render_template("materia.html",materia = materia_con_id)
+    else:
+        flash("no esta logueado")
+        return redirect("/")
+    
     
 
 
