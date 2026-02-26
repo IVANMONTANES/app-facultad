@@ -219,7 +219,6 @@ main {
 .nota {
     margin-top: 6px;
     padding: 6px 8px;
-    background-color: rgba(76, 175, 239, 0.15);
     border-radius: 6px;
     font-size: 1.05rem;
 }
@@ -257,6 +256,17 @@ main {
     background-color: var(--color-acento);
     margin: 6px auto 0 auto;
     border-radius: 2px;
+}
+.nota-roja {
+    color: #e53935 !important;
+}
+
+.nota-amarilla {
+    color: #fbc02d !important;
+}
+
+.nota-verde {
+    color: #43a047 !important;
 }
 
 /* Inputs */

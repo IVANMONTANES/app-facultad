@@ -188,7 +188,7 @@ def actualizar_estado_examen_por_id(id_examen: int,nota: int,estado_actual:int):
     with sqlite3.connect(rutaExamenes) as con:
         cursor = con.cursor()
         cursor.execute("""
-            UPDATE examenes set nota = ?, realizado = ?""",(nota,nuevo_estado))
+            UPDATE examenes set nota = ?, realizado = ? WHERE id_examen = ?""",(nota,nuevo_estado,id_examen))
         con.commit()
         
 

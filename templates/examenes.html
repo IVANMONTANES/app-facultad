@@ -71,7 +71,15 @@
                                 <h3>{{ examen.nombre }}</h3>
                                 <p><span>Fecha:</span> {{ examen.fecha }}</p>
                                 <p><span>Hora:</span> {{ examen.hora }}</p>
-                                <p class="nota"><span>Nota:</span> {{ examen.nota }}</p>
+                                <p class="nota 
+                                    {% if examen.nota < 4 %}
+                                        nota-roja
+                                    {% elif examen.nota < 7 %}
+                                        nota-amarilla
+                                    {% else %}
+                                        nota-verde
+                                    {% endif %}
+                                "><span>Nota:</span> {{ examen.nota }}</p>
                                 <form action="/marcar-examen-pendiente" method="post">
                                     <div>
                                         <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
@@ -93,7 +101,7 @@
         <!-- FORMULARIO -->
         <section class="form-container">
 
-            <form action="/crear-examen/" method="POST">
+            <form action="/crear-examen" method="POST">
                 <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                 <h2>Cargar Examen de {{ materia.nombre }}</h2>
 
