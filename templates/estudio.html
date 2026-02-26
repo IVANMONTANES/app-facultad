@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Horas de Estudio</title>
+    <link rel="stylesheet" href="../static/css/estudio.css">
+</head>
+<body>
+
+    <!-- NAV PRINCIPAL -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/panel">Panel</a></li>
+            <li><a href="/cargar-materia">Cargar Materia</a></li>
+            <li><a href="/ver-materias">Ver Materias</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <h1>FACULTAD ORGANIZACION</h1>
+        <div class="fecha-hora">
+            <div class="fecha" id="fecha">Cargando fecha...</div>
+            <div class="hora" id="hora">Cargando hora...</div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories = false) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-wrapper">
+                        <div class="flash-message">
+                            <p>{{ message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- FORMULARIO DE HORAS DE ESTUDIO -->
+        <section class="form-container">
+            <form action="/guardar-estudios" method="POST">
+                <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
+                <h2>Cargar Horas de Estudio de {{ materia.nombre }}</h2>
+
+                <div class="input-group">
+                    <label>Minutos de estudio</label>
+                    <input type="number" name="horas_estudio" min="0" placeholder="Ej: 90">
+                </div>
+
+                <input type="submit" class="btn-guardar" value="Guardar Horas">
+            </form>
+        </section>
+
+    </main>
+
+    <script src="../static/js/hoja.js"></script>
+</body>
+</html>

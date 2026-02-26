@@ -1,0 +1,217 @@
+﻿/* ===================================
+   Paleta y tipografía igual que horarios
+=================================== */
+:root {
+    --color-fondo: #121212;
+    --color-header: #1f1f1f;
+    --color-nav: #1a1a1a;
+    --color-texto: #e0e0e0;
+    --color-acento: #4cafef;
+    --color-flash: #4CAF50;  /* verde éxito */
+    --color-input-bg: #1a1a1a;
+    --color-input-border: #333;
+    --color-btn: #4cafef;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAV */
+nav.main-nav {
+    background-color: var(--color-nav);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav.main-nav a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s;
+    border-radius: 5px;
+}
+
+nav.main-nav a:hover {
+    background-color: var(--color-acento);
+    color: #fff;
+}
+
+/* HEADER */
+header {
+    background-color: var(--color-header);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Contenedor fecha y hora */
+.fecha-hora {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+    color: #b0b0b0;
+}
+
+.fecha {
+    font-weight: bold;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.hora {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-acento);
+    letter-spacing: 2px;
+}
+
+/* MAIN */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Flash Messages */
+.flash-wrapper {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-bottom: 2rem;
+}
+
+.flash-message {
+    width: 100%;
+    background-color: var(--color-flash);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Formulario */
+.form-container {
+    width: 40%;
+    background-color: var(--color-header);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.form-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--color-texto);
+    position: relative;
+}
+
+.form-container h2::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 30%;
+    background-color: var(--color-acento);
+    margin: 0 auto;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+/* Inputs y etiquetas */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--color-acento);
+}
+
+.input-group input {
+    padding: 0.6rem 1rem;
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: 6px;
+    color: var(--color-texto);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--color-acento);
+}
+
+/* Botón guardar */
+.btn-guardar {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-btn);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-guardar:hover {
+    background-color: #3390ff;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .form-container {
+        width: 90%;
+        padding: 2rem;
+    }
+
+    nav.main-nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

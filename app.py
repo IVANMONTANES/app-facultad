@@ -238,6 +238,9 @@ def get_examenes_page(id_materia):
 
 
         return render_template("examenes.html",materia = materia, examenes_pendientes = examenes_pendientes_materia, examenes_realizados = examenes_realizados_materia)
+    else:
+        flash("no esta logueado")
+        return redirect("/")
     
 @app.route("/crear-examen", methods = ["POST"])
 def crear_examen() -> None:
@@ -287,6 +290,24 @@ def marcar_examen_pendiente() -> None:
         flash("se marco el examen como pendiente correctamente")
     return redirect(f"examenes/{id_materia}")
 
+
+# # SECCION ESTUDIOS #
+# -------------------------------------------------------------------- #
+@app.route("/estudio/<int:id_materia>")
+def get_estudio_page(id_materia):
+    if "logueado" in session:
+        # obtenemos la materia con ese id #
+        materia = db.obtener_materia_por_id(id_materia)
+
+        # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
+        if materia is None:
+            flash("no existe la materia ingresada")
+            return redirect("/")
+        
+        return render_template("estudio.html",materia = materia)
+    else:
+        flash("no esta logueado")
+        return redirect("/")
     
 
 
