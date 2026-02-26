@@ -66,7 +66,10 @@ def not_allow_page(e):
 
 
 
-# manejar el login #
+#-------------------- LOGIN -----------------------#
+
+
+# FUNCION QUE VERIFICA SI LA CONTRASEÑA INGRESADA ES LA CORRECTA #
 @app.route("/login-user", methods = ["POST"])
 def login() -> None:
     # recuperamos la contraseña del formulario #
@@ -80,24 +83,32 @@ def login() -> None:
         flash("contraseña incorrecta")
         return redirect("/")
     
-# crear materia
+
+
+# FUNCION QUE SE ENCARGA, DE RECIBIR LOS DATOS DEL FORMULARIO, Y CREAR LA MATERIA EN LA BASE DE DATOS #
 @app.route("/crear-materia", methods = ["POST"])
 def crear_materia() -> None:
     # recuperamos los datos cargados en el formulario #
     nombre = request.form["nombre"]
     descripcion = request.form["descripcion"]
+    carga = int(request.form["carga"])
+
+    # verificamos si la descripcion vino vacia #
+
     if not descripcion:
         descripcion = None
-    carga = int(request.form["carga"])
 
     # creamos la tabla si es que no existe #
     db.crear_tabla()
+
     # agregamos la materia a la base de datos #
     db.insertar_materia(nombre,descripcion,carga)
+
     # volvemos a la pagina de crear la materia
     flash(f"se creo la materia {nombre}")
     return redirect("/cargar-materia")
 
+# FUNCION QUE SE ENCARGA DE OBTENER TODAS LAS MATERIAS DE LA BASE DE DATOS Y RENDERIZARLAS #
 @app.route("/ver-materias")
 def get_ver_materias():
     if "logueado" in session:
@@ -108,6 +119,7 @@ def get_ver_materias():
     else:
         flash("no esta logueado")
         return redirect("/")
+
     
 @app.route("/materia/<int:id_materia>")
 def get_materia(id_materia):
@@ -118,6 +130,88 @@ def get_materia(id_materia):
     else:
         flash("no esta logueado")
         return redirect("/")
+    
+@app.route("/horarios/<int:id_materia>")
+def get_horarios(id_materia):
+    if "logueado" in session:
+        # obtenemos la materia por el id
+        materia_con_id = db.obtener_materia_por_id(id_materia)
+
+        # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
+        if materia_con_id is None:
+            flash("no existe la materia ingresada")
+            return redirect("/")
+
+        # verificamos si ya tiene horarios cargados #
+        horarios2 = db.obtener_horario_por_materia_id(id_materia)
+
+        if horarios2 is None:
+            horarios2 = {
+                "Lunes": "No se cargo ningun horario",
+                "Martes": "No se cargo ningun horario",
+                "Miercoles": "No se cargo ningun horario",
+                "Jueves": "No se cargo ningun horario",
+                "Viernes": "No se cargo ningun horario",
+                "Sabado": "No se cargo ningun horario",
+                "Domingo": "No se cargo ningun horario",
+            }
+            return render_template("horarios.html",materia = materia_con_id, horarios = horarios2)
+        else:
+            # recorremos el diccionario viendo que dias no estan cargados para agregar un texto informartivo #
+            for dia, horario in horarios2.items():
+                if not horario:
+                    horarios2[dia] = "no se cargo ningun horario"
+            return render_template("horarios.html",materia = materia_con_id,horarios = horarios2)
+
+    else:
+        flash("no esta logueado")
+        return redirect("/")
+    
+@app.route("/guardar-horarios", methods = ["POST"])
+def save_horarios():
+    # recibimos los datos traidos del formulario #
+    id_materia = int(request.form["id_materia"])
+    lunes = request.form["lunes"]
+    martes = request.form["martes"]
+    miercoles = request.form["miercoles"]
+    jueves = request.form["jueves"]
+    viernes = request.form["viernes"]
+    sabado = request.form["sabado"]
+    domingo = request.form["domingo"]
+
+    # creamos un diccionario con los horarios pasados #
+    diccionario_horarios = {
+        "Lunes": lunes,
+        "Martes":martes,
+        "Miercoles":miercoles,
+        "Jueves": jueves,
+        "Viernes": viernes,
+        "Sabado": sabado,
+        "Domingo": domingo
+        
+    }
+    
+    
+    horarios_materia = db.obtener_horario_por_materia_id(id_materia)
+    # verificamos si ya hay horarios cargados para este materia #
+    if horarios_materia:
+        for dia,horario in diccionario_horarios.items():
+            # verificamos si el horario esta vacio, si lo esta dejamos el horario anterior #
+            if not horario:
+                diccionario_horarios[dia] = horarios_materia[dia]
+        
+        # actualizamos los horarios en la base de datos #
+        db.modificar_horarios(diccionario_horarios,id_materia)
+    # en el caso de no haber un horario cargado lo creamos #    
+    else:
+        db.insertar_horarios(diccionario_horarios,id_materia)
+
+    flash("horarios modificados con exito")
+    return redirect(f"/horarios/{id_materia}")
+
+    
+       
+
     
     
 
@@ -137,4 +231,6 @@ def get_materia(id_materia):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    db.crear_tabla_materias()
+    db.crear_tabla_horarios()
+    app.run(debug=False) 

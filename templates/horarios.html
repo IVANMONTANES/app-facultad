@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Horarios</title>
+    <link rel="stylesheet" href="../static/horarios.css">
+</head>
+<body>
+
+    <!-- NAV PRINCIPAL -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/panel">Panel</a></li>
+            <li><a href="/cargar-materia">Cargar Materia</a></li>
+            <li><a href="/ver-materias">Ver Materias</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <h1>FACULTAD ORGANIZACION</h1>
+    </header>
+
+    <main>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories = false) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-wrapper">
+                        <div class="flash-message">
+                            <p>{{ message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- SECCION DE HORARIOS EXISTENTES -->
+        
+            <section class="horarios-actuales">
+            <h2>Horarios Cargados</h2>
+            <div class="dias-horarios">
+                {% for dia,hora in horarios.items() %}
+                <div class="dia-horario">
+                    <strong>{{ dia }}:</strong> {{ hora }}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE HORARIOS -->
+        <section class="form-container">
+            <form action="/guardar-horarios" method="POST">
+                <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
+                <h2>Cargar Horarios de {{ materia.nombre }}</h2>
+
+                <!-- Horarios por día -->
+                <div class="dias-container">
+                    {% for dia in ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'] %}
+                    <div class="input-group">
+                        <label>{{ dia }}</label>
+                        
+                        <input type="text" name="{{ dia | lower }}" placeholder="Ej: 8:00-10:00">
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <input type="submit" class="btn-guardar" value="guardar horarios"></input>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+</html>
