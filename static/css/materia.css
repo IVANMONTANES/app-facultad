@@ -1,13 +1,10 @@
-﻿/* panel.css */
-
-/* Paleta y tipografía */
+﻿/* Paleta y tipografía igual que panel.css */
 :root {
     --color-fondo: #121212;
     --color-header: #1f1f1f;
     --color-nav: #1a1a1a;
     --color-texto: #e0e0e0;
     --color-acento: #4cafef;
-    --color-flash: #ff4c4c;
     --color-card-bg: #1e1e1e;
     --color-card-acento: #333;
 }
@@ -28,7 +25,7 @@ body {
     flex-direction: column;
 }
 
-/* NAV */
+/* NAV igual que panel.css */
 nav.main-nav {
     background-color: var(--color-nav);
     padding: 1rem 2rem;
@@ -40,7 +37,7 @@ nav.main-nav {
 nav.main-nav ul {
     list-style: none;
     display: flex;
-    gap: 2rem; /* espacio entre links */
+    gap: 2rem;
 }
 
 nav.main-nav a {
@@ -58,7 +55,7 @@ nav.main-nav a:hover {
     color: #fff;
 }
 
-/* HEADER */
+/* HEADER igual que panel.css */
 header {
     background-color: var(--color-header);
     padding: 1.5rem 2rem;
@@ -71,6 +68,45 @@ header h1 {
     font-weight: 600;
 }
 
+/* ===== Header Layout Mejorado ===== */
+
+header {
+    position: relative; /* necesario para posicionar la fecha */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor fecha y hora */
+.fecha-hora {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+    color: #b0b0b0;
+}
+
+/* Fecha */
+.fecha {
+    font-weight: bold;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Hora */
+.hora {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-acento);
+    letter-spacing: 2px;
+}
+
+
+header {
+    border-bottom: 1px solid #2a2a2a;
+}
+
 /* MAIN */
 main {
     flex: 1;
@@ -80,16 +116,12 @@ main {
     align-items: center;
 }
 
-/* Mensajes flash */
-.flash-message {
-    width: 80%;
-    background-color: var(--color-flash);
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 600;
+/* TITULO DE MATERIA */
+.materia-titulo {
+    font-size: 2rem;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    color: var(--color-texto);
+    text-align: center;
 }
 
 /* Contenedor de cards */
@@ -97,52 +129,41 @@ main {
     display: flex;
     gap: 2rem;
     justify-content: center;
-    flex-wrap: wrap; /* para pantallas más pequeñas */
+    flex-wrap: wrap;
 }
 
-/* Cards individuales */
+/* Cards de opciones */
 .card {
     background-color: var(--color-card-bg);
     border-radius: 12px;
-    padding: 6rem 3rem 6rem 3rem;
-    width: 400px;
+    padding: 4rem 2rem; /* más alto para aspecto de panel */
+    width: 250px;
     text-align: center;
     box-shadow: 0 8px 15px rgba(0,0,0,0.5);
     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    color: var(--color-texto);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 20px rgba(0,0,0,0.7);
+    background-color: var(--color-card-acento);
 }
 
 .card h3 {
+    font-size: 1.4rem;
     margin-bottom: 1rem;
-    font-size: 1.6rem;
 }
 
+/* Si querés un subtítulo o descripción en la card */
 .card p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    color: #ccc;
-}
-
-/* Botón dentro de card */
-.card-btn {
-    display: inline-block;
-    font-size: 20px;
-    padding: 0.9rem 3rem;
-    background-color: var(--color-acento);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.card-btn:hover {
-    background-color: #3390ff;
-    transform: translateY(-2px);
+    font-size: 1rem;
+    color: #aaa;
 }
 
 /* Responsive */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ver Materias</title>
-    <link rel="stylesheet" href="../static/ver_materias.css">
+    <link rel="stylesheet" href="../static/css/ver_materias.css">
 </head>
 <body>
 
@@ -18,6 +18,10 @@
 
     <header>
         <h1>FACULTAD ORGANIZACIÓN</h1>
+        <div class="fecha-hora">
+            <div class="fecha" id="fecha">Cargando fecha...</div>
+            <div class="hora" id="hora">Cargando hora...</div>
+        </div>
     </header>
 
 <main>
@@ -43,6 +47,6 @@
         {% endfor %}
     </section>
 </main>
-
+<script src="../static/js/hoja.js"></script>
 </body>
 </html>

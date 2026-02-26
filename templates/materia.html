@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle Materia</title>
-    <link rel="stylesheet" href="../static/materia.css">
+    <link rel="stylesheet" href="../static/css/materia.css">
 </head>
 <body>
 
@@ -20,6 +20,10 @@
     <!-- HEADER -->
     <header>
         <h1>FACULTAD ORGANIZACION</h1>
+        <div class="fecha-hora">
+            <div class="fecha" id="fecha">Cargando fecha...</div>
+            <div class="hora" id="hora">Cargando hora...</div>
+        </div>
     </header>
     
     <main>
@@ -33,6 +37,6 @@
             <a href="/examenes/{{ materia.id_materia }}" class="card">Examenes</a>
         </div>
     </main>
-
+    <script src="../static/js/hoja.js"></script>
 </body>
 </html>
