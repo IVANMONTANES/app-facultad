@@ -23,22 +23,50 @@
 
     <main>
 
+        {% with messages = get_flashed_messages(with_categories = false) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="flash-message">
+                        <p>{{ message }}</p>
+                    </div>   
+                    {% endfor %}
+                {% endif %}
+        {% endwith %}
+
         <!-- SECCIÓN DE EXÁMENES -->
         <section class="examenes-section">
 
             <div class="examenes-col">
                 <h2>Pendientes</h2>
                 <div class="examen-lista">
-                    <!-- Aquí irían los exámenes pendientes -->
-                    <p class="placeholder">No hay exámenes pendientes</p>
+                    {% if examenes_pendientes %}
+                        {% for examen in examenes_pendientes %}
+                            <div class="examen">
+                                <h3>{{ examen.nombre }}</h3>
+                                <p>fecha: {{ examen.fecha }}</p>
+                                <p>hora: {{ examen.hora }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="placeholder">No hay exámenes pendientes</p>
+                    {% endif %}
                 </div>
             </div>
 
             <div class="examenes-col">
                 <h2>Realizados</h2>
                 <div class="examen-lista">
-                    <!-- Aquí irían los exámenes realizados -->
-                    <p class="placeholder">No hay exámenes realizados</p>
+                    {% if examenes_realizados %}
+                        {% for examen in examenes_realizados %}
+                            <div class="examen">
+                                <h3>{{ examen.nombre }}</h3>
+                                <p>fecha: {{ examen.fecha }}</p>
+                                <p>hora: {{ examen.hora }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="placeholder">No hay exámenes realizados</p>
+                    {% endif %}
                 </div>
             </div>
 
@@ -48,6 +76,7 @@
         <section class="form-container">
 
             <form action="/crear-examen" method="POST">
+                <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                 <h2>Cargar Examen de {{ materia.nombre }}</h2>
 
                 <div class="input-group">

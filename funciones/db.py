@@ -1,5 +1,6 @@
 ﻿import sqlite3
 from funciones.materia import Materia
+from funciones.examen import Examen
 
 
 
@@ -139,6 +140,50 @@ def obtener_horario_por_materia_id(id_materia: int) -> dict:
         }
 
         return diccionario
+    
+
+# base de datos relacionada con examenes #
+rutaExamenes = "db/examenes.db"
+
+
+def crear_tabla_examenes() -> None:
+    with sqlite3.connect(rutaExamenes) as con:
+        cursor = con.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS examenes(
+                id_examen INTEGER PRIMARY KEY AUTOINCREMENT,
+                id_materia INTEGER NOT NULL,
+                nombre TEXT NOT NULL,
+                fecha TEXT NOT NULL,
+                hora TEXT NOT NULL,
+                realizado INTEGER NOT NULL DEFAULT 0,
+                FOREIGN KEY (id_materia) REFERENCES materias(id_materia)              
+            )""")
+        
+def insertar_examen(id_materia: int, nombre: str, fecha: str, hora: str) -> None:
+    with sqlite3.connect(rutaExamenes) as con:
+        cursor = con.cursor()
+        cursor.execute("""
+            INSERT INTO examenes (id_materia,nombre,fecha,hora) VALUES (?,?,?,?)
+        """,(id_materia,nombre,fecha,hora))
+        con.commit()
+
+def obtener_examenes_por_id_materia(id_materia: int, estado_buscado:int) -> list[Examen]:
+    with sqlite3.connect(rutaExamenes) as con:
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        cursor.execute("""
+            SELECT nombre, fecha, hora FROM examenes WHERE id_materia = ? AND realizado = ?
+        """,(id_materia,estado_buscado))
+        
+        # verificamos que se haya traido al menos un examen #
+        filas = cursor.fetchall()
+        examenes = [Examen(fila["nombre"],fila["fecha"],fila["hora"]) for fila in filas]
+
+        return examenes
+        
+
+
     
 
             

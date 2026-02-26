@@ -225,14 +225,34 @@ def get_examenes_page(id_materia):
         # obtenemos la materia con ese id #
         materia = db.obtener_materia_por_id(id_materia)
 
+        # obtenemos los examenes pendientes de la materia #
+        examenes_pendientes_materia = db.obtener_examenes_por_id_materia(id_materia,0)
+
+        # obtenemos los examenes realizados de la materia #
+        examenes_realizados_materia = db.obtener_examenes_por_id_materia(id_materia,1)
+
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
         if materia is None:
             flash("no existe la materia ingresada")
             return redirect("/")
 
 
-        return render_template("examenes.html",materia = materia)
+        return render_template("examenes.html",materia = materia, examenes_pendientes = examenes_pendientes_materia, examenes_realizados = examenes_realizados_materia)
     
+@app.route("/crear-examen", methods = ["POST"])
+def crear_examen() -> None:
+    # obtenemos los datos cargados en el formulario #
+    id_materia = int(request.form["id_materia"])
+    nombre = request.form["nombre"]
+    fecha = request.form["fecha"]
+    hora = request.form["hora"]
+
+    # insertamos el examen en la base de datos #
+    db.insertar_examen(id_materia,nombre,fecha,hora)
+
+    flash("examen agregado correctamente")
+    return redirect(f"examenes/{id_materia}")
+
 
 
 
@@ -261,4 +281,5 @@ def get_examenes_page(id_materia):
 if __name__ == "__main__":
     db.crear_tabla_materias()
     db.crear_tabla_horarios()
+    db.crear_tabla_examenes()
     app.run(debug=False) 
