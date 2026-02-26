@@ -131,8 +131,11 @@ def get_materia(id_materia):
         flash("no esta logueado")
         return redirect("/")
     
+# SECCION HORARIOS #
+# -------------------------------------------------------------------- #
+    
 @app.route("/horarios/<int:id_materia>")
-def get_horarios(id_materia):
+def get_horarios_page(id_materia):
     if "logueado" in session:
         # obtenemos la materia por el id
         materia_con_id = db.obtener_materia_por_id(id_materia)
@@ -208,6 +211,31 @@ def save_horarios():
 
     flash("horarios modificados con exito")
     return redirect(f"/horarios/{id_materia}")
+
+# FIN SECCION HORARIOS #
+# -------------------------------------------------------------------- #
+
+
+
+# # SECCION EXAMENES #
+# -------------------------------------------------------------------- #
+@app.route("/examenes/<int:id_materia>")
+def get_examenes_page(id_materia):
+    if "logueado" in session:
+        # obtenemos la materia con ese id #
+        materia = db.obtener_materia_por_id(id_materia)
+
+        # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
+        if materia is None:
+            flash("no existe la materia ingresada")
+            return redirect("/")
+
+
+        return render_template("examenes.html",materia = materia)
+    
+
+
+
 
     
        

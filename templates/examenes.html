@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Exámenes</title>
+    <link rel="stylesheet" href="../static/examen.css">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/panel">Panel</a></li>
+            <li><a href="/cargar-materia">Cargar Materia</a></li>
+            <li><a href="/ver-materias">Ver Materias</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <h1>FACULTAD ORGANIZACIÓN</h1>
+    </header>
+
+    <main>
+
+        <!-- SECCIÓN DE EXÁMENES -->
+        <section class="examenes-section">
+
+            <div class="examenes-col">
+                <h2>Pendientes</h2>
+                <div class="examen-lista">
+                    <!-- Aquí irían los exámenes pendientes -->
+                    <p class="placeholder">No hay exámenes pendientes</p>
+                </div>
+            </div>
+
+            <div class="examenes-col">
+                <h2>Realizados</h2>
+                <div class="examen-lista">
+                    <!-- Aquí irían los exámenes realizados -->
+                    <p class="placeholder">No hay exámenes realizados</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- FORMULARIO -->
+        <section class="form-container">
+
+            <form action="/crear-examen" method="POST">
+                <h2>Cargar Examen de {{ materia.nombre }}</h2>
+
+                <div class="input-group">
+                    <label>Nombre del examen *</label>
+                    <input type="text" name="nombre" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Fecha del examen *</label>
+                    <input type="date" name="fecha" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Hora del examen *</label>
+                    <input type="time" name="hora" required>
+                </div>
+
+                <button type="submit" class="btn-guardar">
+                    Guardar Examen
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
