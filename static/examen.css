@@ -163,6 +163,37 @@ main {
     transition: 0.2s;
 }
 
+/* Centrar botón en exámenes realizados */
+.realizado form div {
+    justify-content: center;
+}
+/* Asegurar alineación consistente en todos los datos del examen */
+.examen p {
+    font-size: 1rem;          /* más grande */
+    font-weight: 600;         /* negrita */
+    color: #ddd;
+    margin: 0.25rem 0;        /* mismo margen vertical para todos */
+    padding: 0;               /* eliminamos cualquier padding raro */
+}
+
+.examen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 140px;
+}
+
+.examen form {
+    margin-top: auto;
+}
+.pendiente {
+    border-left: 4px solid #f9a825;
+}
+
+.realizado {
+    border-left: 4px solid #4CAF50;
+}
+
 .examen:hover {
     background-color: var(--color-card-hover);
     transform: translateY(-3px);
@@ -175,8 +206,22 @@ main {
 }
 
 .examen p {
-    font-size: 0.9rem;
-    color: #bbb;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ddd;
+    margin-top: 4px;
+}
+
+.examen p span {
+    font-weight: 700;
+    color: var(--color-acento);
+}
+.nota {
+    margin-top: 6px;
+    padding: 6px 8px;
+    background-color: rgba(76, 175, 239, 0.15);
+    border-radius: 6px;
+    font-size: 1.05rem;
 }
 
 .placeholder {
@@ -277,4 +322,54 @@ input:focus {
     .form-container {
         width: 90%;
     }
+}
+
+/* =========================
+   FORM REALIZAR EXAMEN
+========================= */
+
+.examen form {
+    margin-top: 0.8rem;
+}
+
+.examen form div {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+/* Input nota */
+.examen input[type="number"] {
+    flex: 1;
+    padding: 0.45rem 0.6rem;
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: 6px;
+    color: var(--color-texto);
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.examen input[type="number"]:focus {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 5px rgba(76, 175, 239, 0.4);
+}
+
+/* Botón realizar */
+.examen input[type="submit"] {
+    padding: 0.45rem 0.8rem;
+    background-color: #2e7d32; /* verde más oscuro que el flash */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.examen input[type="submit"]:hover {
+    background-color: #43a047;
+    transform: translateY(-2px);
 }

@@ -253,6 +253,44 @@ def crear_examen() -> None:
     flash("examen agregado correctamente")
     return redirect(f"examenes/{id_materia}")
 
+@app.route("/realizar-examen", methods = ["POST"])
+def realizar_examen() -> None:
+    # obtenemos los datos cargados en el formulario #
+    id_examen = int(request.form["id_examen"])
+    id_materia = int(request.form["id_materia"])
+    nota = int(request.form["nota"])
+    estado_actual = int(request.form["estado_actual"])
+
+    # actualizamos el examen #
+    db.actualizar_estado_examen_por_id(id_examen,nota,estado_actual)
+    
+    if estado_actual == 0:
+        flash("se realizo el examen correctamente")
+    else:
+        flash("se marco el examen como pendiente correctamente")
+    return redirect(f"examenes/{id_materia}")
+
+
+@app.route("/marcar-examen-pendiente", methods = ["POST"])
+def marcar_examen_pendiente() -> None:
+    # obtenemos los datos cargados en el formulario #
+    id_examen = int(request.form["id_examen"])
+    id_materia = int(request.form["id_materia"])
+    estado_actual = int(request.form["estado_actual"])
+
+    # actualizamos el examen #
+    db.actualizar_estado_examen_por_id(id_examen,None,estado_actual)
+
+    if estado_actual == 0:
+        flash("se realizo el examen correctamente")
+    else:
+        flash("se marco el examen como pendiente correctamente")
+    return redirect(f"examenes/{id_materia}")
+
+    
+
+
+
 
 
 

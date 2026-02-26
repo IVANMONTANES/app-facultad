@@ -156,6 +156,7 @@ def crear_tabla_examenes() -> None:
                 nombre TEXT NOT NULL,
                 fecha TEXT NOT NULL,
                 hora TEXT NOT NULL,
+                nota INTEGER,
                 realizado INTEGER NOT NULL DEFAULT 0,
                 FOREIGN KEY (id_materia) REFERENCES materias(id_materia)              
             )""")
@@ -173,14 +174,22 @@ def obtener_examenes_por_id_materia(id_materia: int, estado_buscado:int) -> list
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
         cursor.execute("""
-            SELECT nombre, fecha, hora FROM examenes WHERE id_materia = ? AND realizado = ?
+            SELECT id_examen ,nombre, fecha, hora, nota FROM examenes WHERE id_materia = ? AND realizado = ?
         """,(id_materia,estado_buscado))
         
         # verificamos que se haya traido al menos un examen #
         filas = cursor.fetchall()
-        examenes = [Examen(fila["nombre"],fila["fecha"],fila["hora"]) for fila in filas]
+        examenes = [Examen(fila["id_examen"],fila["nombre"],fila["fecha"],fila["hora"],fila["nota"]) for fila in filas]
 
         return examenes
+    
+def actualizar_estado_examen_por_id(id_examen: int,nota: int,estado_actual:int):
+    nuevo_estado = 0 if estado_actual == 1 else 1
+    with sqlite3.connect(rutaExamenes) as con:
+        cursor = con.cursor()
+        cursor.execute("""
+            UPDATE examenes set nota = ?, realizado = ?""",(nota,nuevo_estado))
+        con.commit()
         
 
 
