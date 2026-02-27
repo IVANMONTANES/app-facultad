@@ -41,15 +41,33 @@
             {% endif %}
         {% endwith %}
 
+    <section class="estudios-section">
+        <div class="estudios-col">
+            <h2>MEDIA SEMANAL</h2>
+            <div class="estudio-lista">
+                {% if ultima_semana %}
+                    {% for dia in ultima_semana %}
+                        <h3>{{ dia }}</h3>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
         <!-- FORMULARIO DE HORAS DE ESTUDIO -->
         <section class="form-container">
-            <form action="/guardar-estudios" method="POST">
+            <form action="/guardar-estudio" method="POST">
                 <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                 <h2>Cargar Horas de Estudio de {{ materia.nombre }}</h2>
+                
+                <div class="input-group">
+                    <label for="minutos">Minutos de estudio</label>
+                    <input type="number" name="horas_estudio" id="minutos" min="0" placeholder="Ej: 90" required>
+                </div>
 
                 <div class="input-group">
-                    <label>Minutos de estudio</label>
-                    <input type="number" name="horas_estudio" min="0" placeholder="Ej: 90">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" name="fecha" id="fecha" required>
                 </div>
 
                 <input type="submit" class="btn-guardar" value="Guardar Horas">

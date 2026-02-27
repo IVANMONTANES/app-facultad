@@ -1,6 +1,8 @@
 ﻿from flask import Flask, render_template, request, flash, redirect, session
 import os
-from funciones import db
+from funciones import db,fecha
+from datetime import datetime
+import locale
 
 
 
@@ -299,16 +301,49 @@ def get_estudio_page(id_materia):
         # obtenemos la materia con ese id #
         materia = db.obtener_materia_por_id(id_materia)
 
+        # obtenemos los estudios cargados de la materia #
+        estudios = db.obtener_estudio_por_id_materia_ordenados(id_materia)
+
+        if estudios:
+            for estudio in estudios:
+                # Para formatear en español
+                locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+
+                # convierto la fecha de str a datetime
+                fecha_obj = datetime.strptime(estudio.fecha, "%Y-%m-%d")
+                # formateo la fecha en formato largo
+                fecha_formateada = fecha_obj.strftime("%A %d de %B de %Y")
+
+                estudio.fecha = fecha_formateada
+
+            
+
+
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
         if materia is None:
             flash("no existe la materia ingresada")
             return redirect("/")
         
-        return render_template("estudio.html",materia = materia)
+        return render_template("estudio.html",materia = materia,ultima_semana =fecha.obtener_ultima_semana_formateada() )
     else:
         flash("no esta logueado")
         return redirect("/")
-    
+
+
+@app.route("/guardar-estudio", methods = ["POST"])
+def guardar_estudio() -> None:
+    # obtenemos los datos cargados en el formulario #
+    id_materia = int(request.form["id_materia"])
+    horas_estudio = int(request.form["horas_estudio"])
+    fecha = request.form["fecha"]
+
+    print(f"fecha guardada {fecha}")
+
+    # insertamos el estudio en la base de datos #
+    db.insertar_estudio(id_materia,horas_estudio,fecha)
+
+    flash("dia de estudio agregado correctamente")
+    return redirect(f"/estudio/{id_materia}")
 
 
 
@@ -340,5 +375,6 @@ def get_estudio_page(id_materia):
 if __name__ == "__main__":
     db.crear_tabla_materias()
     db.crear_tabla_horarios()
+    db.crear_tabla_estudios()
     db.crear_tabla_examenes()
     app.run(debug=False) 
