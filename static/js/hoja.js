@@ -1,4 +1,6 @@
-﻿// obtenemos la fecha actual //
+﻿// ------------------------------------ SECCION RELOJ EN TIEMPO REAL ---------------------------------------- //
+
+// obtenemos la fecha actual //
 function obtenerFecha(){
     let fechaActual = new Date();
 
@@ -47,3 +49,58 @@ function actualizarHora(){
 
 actualizarHora()
 setInterval(actualizarHora,1000);
+
+
+
+// ------------------------------------------ SECCION CAMBIO DE UNIDAD DE TIEMPO ----------------------------------------- //
+function obtenerSegundoFormato(minutos){
+    horas = Math.floor(minutos / 60);
+    minutos = minutos % 60;
+    return `${horas}h ${minutos}mins`;
+}
+
+// evento que espera que sea cargue el dom (arbol de nodos) //
+document.addEventListener("DOMContentLoaded", () => {
+    // obtenemos los elementos con el atributo data-min //
+    let elementos = document.querySelectorAll("[data-mins]");
+
+    for(let elemento of elementos){
+        elemento.addEventListener("click",(event)=> {
+            let elementoActual = event.currentTarget;
+            let minutos = parseInt(elementoActual.dataset.mins);
+
+            if (elementoActual.dataset.formato === "1"){
+                
+                let nuevoFormato = obtenerSegundoFormato(minutos);
+
+                // actualizamos el contenido //
+                // verificamos si es la media //
+                if(elementoActual.hasAttribute("data-media")){
+                    elementoActual.querySelector("span").textContent = "Los ultimos 7 dias estudio un total de: " + nuevoFormato;
+                }else{
+                    spans = elementoActual.querySelectorAll("span");
+                    spans[1].textContent = nuevoFormato;
+                }
+
+                
+                
+
+                // actualizamos el estado //
+                elementoActual.setAttribute("data-formato","2");
+            }else{
+
+                // actualizamos el contenido //
+                // verificamos si es la media //
+                if(elementoActual.hasAttribute("data-media")){
+                    elementoActual.querySelector("span").textContent = "Los ultimos 7 dias estudio un total de: " + minutos + "mins";
+                }else{
+                    spans = elementoActual.querySelectorAll("span");
+                    spans[1].textContent = minutos + "mins";
+                }
+
+                // actualizamos el estado //
+                elementoActual.setAttribute("data-formato","1");
+            }
+        })
+    }
+})

@@ -400,3 +400,7 @@ main {
     color: var(--color-texto);
     letter-spacing: 0.5px;
 }
+
+.no-seleccion {
+    user-select: none;
+}

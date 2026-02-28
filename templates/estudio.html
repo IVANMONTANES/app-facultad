@@ -46,13 +46,13 @@
             <h2>MEDIA SEMANAL</h2>
             <div class="estudio-lista">
                 {% if diccionario_semana %}   
-                    <div class="promedio">
-                        <span>Los ultimos 7 dias estudio un total de: {{ media }} mins</span>
+                    <div class="promedio no-seleccion" data-mins="{{ media }}" data-formato="1" data-media>
+                        <span >Los ultimos 7 dias estudio un total de: {{ media }}mins</span>
                     </div>
                     {% for dia,horas_estudiadas in diccionario_semana.items() %}
-                        <div class="dia">
+                        <div class="dia no-seleccion" data-mins="{{ horas_estudiadas }}" data-formato="1" >
                             <span class="nombre-dia">{{ dia }}</span>
-                            <span class="minutos"> {{ horas_estudiadas }} mins</span>
+                            <span class="minutos"> {{ horas_estudiadas }}mins</span>
                         </div>
                     {% endfor %}     
                 {% endif %}
