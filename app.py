@@ -1,6 +1,6 @@
 ﻿from flask import Flask, render_template, request, flash, redirect, session
 import os
-from funciones import db,fecha
+from funciones import db,fecha,estudio
 from datetime import datetime
 import locale
 
@@ -99,9 +99,6 @@ def crear_materia() -> None:
 
     if not descripcion:
         descripcion = None
-
-    # creamos la tabla si es que no existe #
-    db.crear_tabla()
 
     # agregamos la materia a la base de datos #
     db.insertar_materia(nombre,descripcion,carga)
@@ -301,22 +298,20 @@ def get_estudio_page(id_materia):
         # obtenemos la materia con ese id #
         materia = db.obtener_materia_por_id(id_materia)
 
-        # obtenemos los estudios cargados de la materia #
-        estudios = db.obtener_estudio_por_id_materia_ordenados(id_materia)
+        # obtenemos la ultima semana #
+        ultima_semana = fecha.obtener_ultima_semana()
 
-        if estudios:
-            for estudio in estudios:
-                # Para formatear en español
-                locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+        # diccionario por compresion, que carga el dia y las horas estudiadas ese dia #
+        diccionario = {dia.strftime("%d De %B De %Y"): estudio.sumar_horas_estudio(db.obtener_estudios_por_fecha(id_materia,dia)) for dia in ultima_semana}
 
-                # convierto la fecha de str a datetime
-                fecha_obj = datetime.strptime(estudio.fecha, "%Y-%m-%d")
-                # formateo la fecha en formato largo
-                fecha_formateada = fecha_obj.strftime("%A %d de %B de %Y")
 
-                estudio.fecha = fecha_formateada
+        # obtenemos el total estudiado de la semana #
+        media = 0
+        for horas in diccionario.values():
+            media += horas
+        
+        
 
-            
 
 
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
@@ -324,7 +319,7 @@ def get_estudio_page(id_materia):
             flash("no existe la materia ingresada")
             return redirect("/")
         
-        return render_template("estudio.html",materia = materia,ultima_semana =fecha.obtener_ultima_semana_formateada() )
+        return render_template("estudio.html",materia = materia,diccionario_semana = diccionario, media = media)
     else:
         flash("no esta logueado")
         return redirect("/")

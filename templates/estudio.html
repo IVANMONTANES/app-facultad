@@ -45,10 +45,16 @@
         <div class="estudios-col">
             <h2>MEDIA SEMANAL</h2>
             <div class="estudio-lista">
-                {% if ultima_semana %}
-                    {% for dia in ultima_semana %}
-                        <h3>{{ dia }}</h3>
-                    {% endfor %}
+                {% if diccionario_semana %}   
+                    <div class="promedio">
+                        <span>Los ultimos 7 dias estudio un total de: {{ media }} mins</span>
+                    </div>
+                    {% for dia,horas_estudiadas in diccionario_semana.items() %}
+                        <div class="dia">
+                            <span class="nombre-dia">{{ dia }}</span>
+                            <span class="minutos"> {{ horas_estudiadas }} mins</span>
+                        </div>
+                    {% endfor %}     
                 {% endif %}
             </div>
         </div>

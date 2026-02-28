@@ -242,6 +242,16 @@ def obtener_estudio_por_id_materia_ordenados(id_materia: int) -> list[Estudio]:
         estudios_ordenados = [Estudio(fila["id_estudio"],fila["horas_estudio"],fila["fecha"]) for fila in filas]
         return estudios_ordenados
 
+def obtener_estudios_por_fecha(id_materia:int, fecha: str) -> list[Estudio]:
+    with sqlite3.connect(rutaEstudios) as con:
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        cursor.execute("""
+            SELECT id_estudio, horas_estudio, fecha from estudios WHERE id_materia = ? AND fecha = ?""",(id_materia,fecha))
+
+        filas = cursor.fetchall()
+        estudios_fecha = [Estudio(fila["id_estudio"],fila["horas_estudio"],fila["fecha"]) for fila in filas]
+        return estudios_fecha
 
     
 

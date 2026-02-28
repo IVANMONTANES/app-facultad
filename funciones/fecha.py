@@ -16,6 +16,8 @@ def obtener_ultima_semana() -> list[date]:
 
     return ultima_semana
 
+
+
 def obtener_ultima_semana_formateada() -> list[str]:
     ultima_semana = obtener_ultima_semana()
     ultima_semana_formateada = []
