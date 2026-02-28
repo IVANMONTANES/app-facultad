@@ -1,19 +1,21 @@
 ﻿/* ===================================
-   Paleta y tipografía igual que horarios
+   estudio.css
+   Mantiene todo igual que antes, solo boton volver arreglado
 =================================== */
+
+/* Variables y reset */
 :root {
     --color-fondo: #121212;
     --color-header: #1f1f1f;
     --color-nav: #1a1a1a;
     --color-texto: #e0e0e0;
     --color-acento: #4cafef;
-    --color-flash: #4CAF50;  /* verde éxito */
+    --color-flash: #4CAF50;
     --color-input-bg: #1a1a1a;
     --color-input-border: #333;
     --color-btn: #4cafef;
 }
 
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -29,7 +31,7 @@ body {
     flex-direction: column;
 }
 
-/* NAV */
+/* NAV y HEADER idénticos a panel.css */
 nav.main-nav {
     background-color: var(--color-nav);
     padding: 1rem 2rem;
@@ -59,7 +61,6 @@ nav.main-nav a:hover {
     color: #fff;
 }
 
-/* HEADER */
 header {
     background-color: var(--color-header);
     padding: 1.5rem 2rem;
@@ -69,6 +70,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid #2a2a2a;
 }
 
 header h1 {
@@ -76,7 +78,6 @@ header h1 {
     font-weight: 600;
 }
 
-/* Contenedor fecha y hora */
 .fecha-hora {
     position: absolute;
     right: 2rem;
@@ -106,6 +107,38 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    gap: 2rem;
+}
+
+/* =====================
+   BOTÓN VOLVER CENTRADO
+===================== */
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background-color: var(--color-acento);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 2rem;
+}
+
+.btn-volver::before {
+    content: "←";
+    font-size: 1.6rem;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.btn-volver:hover {
+    background-color: #3390ff;
+    transform: translateY(-2px);
 }
 
 /* Flash Messages */
@@ -127,7 +160,7 @@ main {
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-/* Formulario */
+/* FORMULARIO */
 .form-container {
     width: 40%;
     background-color: var(--color-header);
@@ -150,8 +183,7 @@ main {
     height: 3px;
     width: 30%;
     background-color: var(--color-acento);
-    margin: 0 auto;
-    margin-top: 5px;
+    margin: 0.3rem auto 0 auto;
     border-radius: 2px;
 }
 
@@ -203,9 +235,7 @@ main {
     transform: translateY(-2px);
 }
 
-/* ==============================
-   Sección de Estudios cargados
-============================== */
+/* Sección de Estudios cargados (igual que antes) */
 .estudios-section {
     width: 80%;
     display: flex;
@@ -247,71 +277,24 @@ main {
     gap: 1rem;
 }
 
-.estudio {
-    background-color: #2a2a2a;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+/* Tarjetas día y promedio: igual que antes */
+.dia, .promedio {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.estudio h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-acento);
+.dia:hover, .promedio:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 5px 10px rgba(0,0,0,0.4);
 }
 
-.estudio p {
-    margin-bottom: 0.3rem;
-    color: var(--color-texto);
-    font-size: 1rem;
-}
-
-.estudio p span {
-    font-weight: 600;
-}
-
-/* Botones de edición o eliminar */
-.estudio form div {
-    margin-top: 0.5rem;
-}
-
-.estudio input[type="submit"] {
-    padding: 0.5rem 1rem;
-    background-color: var(--color-btn);
-    border: none;
-    border-radius: 6px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.estudio input[type="submit"]:hover {
-    background-color: #3390ff;
-    transform: translateY(-1px);
-}
-
-/* Placeholder si no hay estudios */
-.estudio-lista .placeholder {
-    text-align: center;
-    font-style: italic;
-    color: #b0b0b0;
-    padding: 1rem 0;
+.no-seleccion {
+    user-select: none;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
-    .estudios-section {
-        flex-direction: column;
+    .form-container, .estudios-section {
         width: 90%;
-    }
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .form-container {
-        width: 90%;
-        padding: 2rem;
     }
 
     nav.main-nav ul {
@@ -320,87 +303,95 @@ main {
     }
 }
 
-/* ==============================
-   Tarjetas de días (Media semanal)
-============================== */
+/* Tarjeta promedio semanal ajustada */
+.promedio {
+    background-color: #1f1f1f; /* mismo fondo que .estudios-col */
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+    border-left: 4px solid var(--color-acento);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: var(--color-texto);
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+
+
+.promedio span {
+    color: var(--color-texto);
+    font-weight: 600;
+}
+
+/* Hover 3D consistente */
+.promedio:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 5px 10px rgba(0,0,0,0.4);
+}
+
+/* ===== Tarjetas de días de la semana ===== */
 .dia {
-    background-color: #2a2a2a;
-    padding: 0.9rem 1.2rem;
-    border-radius: 10px;
+    background-color: #1f1f1f; /* mismo que .estudios-col */
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
     border-left: 4px solid var(--color-acento);
+    margin-bottom: 1rem;
+    color: var(--color-texto);
+    font-weight: 500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .dia:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 5px 10px rgba(0,0,0,0.4);
 }
 
-.dia p {
-    margin: 0;
-    font-size: 1rem;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.dia strong {
-    color: var(--color-acento);
-}
-
-.dia span {
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.nombre-dia {
+.dia .nombre-dia {
     color: var(--color-texto);
-    font-weight: 500;
+    font-weight: 600;
 }
 
-.minutos {
+.dia .minutos {
     color: var(--color-acento);
     font-weight: 700;
 }
 
-/* ==============================
-   Tarjeta promedio semanal
-============================== */
-
-.promedio {
-    background: linear-gradient(135deg, #1f1f1f, #252525);
-    border: 2px solid var(--color-acento);
-    border-radius: 12px;
-    padding: 1.2rem;
-    text-align: center;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-    position: relative;
-    overflow: hidden;
-}
-
-.promedio::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Contenedor de lista de días */
+.estudio-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     width: 100%;
-    height: 4px;
-    background-color: var(--color-acento);
 }
 
-.promedio span {
-    font-size: 1.1rem;
+/* Tarjeta promedio semanal */
+.promedio {
+    background-color: #1f1f1f; /* igual que tarjetas de días */
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+    border-left: 4px solid var(--color-acento);
     font-weight: 600;
     color: var(--color-texto);
-    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.no-seleccion {
-    user-select: none;
+.promedio:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 5px 10px rgba(0,0,0,0.4);
 }

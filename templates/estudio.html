@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cargar Horas de Estudio</title>
     <link rel="stylesheet" href="../static/css/estudio.css">
+    <link rel="stylesheet" href="../static/css/base.css">
 </head>
 <body>
 
@@ -21,12 +22,14 @@
     <header>
         <h1>FACULTAD ORGANIZACION</h1>
         <div class="fecha-hora">
-            <div class="fecha" id="fecha">Cargando fecha...</div>
-            <div class="hora" id="hora">Cargando hora...</div>
+            <div class="fecha no-seleccion" id="fecha" data-formato = "1">Cargando fecha...</div>
+            <div class="hora no-seleccion" id="hora" data-formato = "1">Cargando hora...</div>
         </div>
     </header>
 
     <main>
+        <!-- BOTÓN VOLVER -->
+        <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
 
         <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories = false) %}

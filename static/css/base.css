@@ -1,0 +1,33 @@
+﻿.no-seleccion {
+    user-select: none;
+}
+
+/* ===== BOTÓN VOLVER CON FLECHA MÁS GRANDE ===== */
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--color-acento);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;       /* tamaño del texto */
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 auto !important;
+}
+
+/* Flecha más grande que el texto */
+.btn-volver::before {
+    content: "←";
+    font-size: 1.8rem;        /* mucho más grande que el texto */
+    line-height: 1;           /* evita desalineación */
+    font-weight: bold;
+}
+
+/* Hover */
+.btn-volver:hover {
+    background-color: #3390ff;
+    transform: translateY(-2px);
+}

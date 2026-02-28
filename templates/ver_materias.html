@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Ver Materias</title>
     <link rel="stylesheet" href="../static/css/ver_materias.css">
+    <link rel="stylesheet" href="../static/css/base.css">
 </head>
 <body>
 
@@ -19,32 +20,39 @@
     <header>
         <h1>FACULTAD ORGANIZACIÓN</h1>
         <div class="fecha-hora">
-            <div class="fecha" id="fecha">Cargando fecha...</div>
-            <div class="hora" id="hora">Cargando hora...</div>
+            <div class="fecha no-seleccion" id="fecha" data-formato = "1">Cargando fecha...</div>
+            <div class="hora no-seleccion" id="hora" data-formato = "1">Cargando hora...</div>
         </div>
     </header>
 
 <main>
+    <!-- BOTÓN VOLVER -->
+        <a href="/volver-panel" class="btn-volver">Volver</a>
+    
     <!-- CONTENEDOR DE MATERIAS -->
     <section class="materias-container">
-        {% for materia in materias %}
-        <a href="/materia/{{ materia.id_materia }}" class="materia-card">
-            <!-- Nombre de la materia -->
-            <h3 class="materia-nombre">{{ materia.nombre }}</h3>
+        {% if materias %}
+            {% for materia in materias %}
+            <a href="/materia/{{ materia.id_materia }}" class="materia-card">
+                <!-- Nombre de la materia -->
+                <h3 class="materia-nombre">{{ materia.nombre }}</h3>
 
-            <!-- Descripción -->
-            <div class="materia-info">
-                <strong>Descripción:</strong>
-                <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
-            </div>
+                <!-- Descripción -->
+                <div class="materia-info">
+                    <strong>Descripción:</strong>
+                    <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
+                </div>
 
-            <!-- Carga semanal -->
-            <div class="materia-info">
-                <strong>Carga semanal:</strong>
-                <p>{{ materia.carga }} hs</p>
-            </div>
-        </a>
-        {% endfor %}
+                <!-- Carga semanal -->
+                <div class="materia-info">
+                    <strong>Carga semanal:</strong>
+                    <p>{{ materia.carga }} hs</p>
+                </div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <p>no hay materias cargadas todavia...</p>
+        {% endif %}
     </section>
 </main>
 <script src="../static/js/hoja.js"></script>

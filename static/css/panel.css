@@ -197,3 +197,14 @@ main {
         gap: 1rem;
     }
 }
+
+/* ===== EFECTO 3D GLOBAL PARA CAJAS ===== */
+.card, .flash-message, section {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover con efecto 3D */
+.card:hover, .flash-message:hover, section:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 5px 10px rgba(0,0,0,0.4);
+}

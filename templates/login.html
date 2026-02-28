@@ -5,32 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIAR SESION</title>
     <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/base.css">
 </head>
 <body>
     <header>
         <h1>FACULTAD ORGANIZACION</h1>
         <div class="fecha-hora">
-            <div class="fecha" id="fecha">Cargando fecha...</div>
-            <div class="hora" id="hora">Cargando hora...</div>
+            <div class="fecha no-seleccion" id="fecha" data-formato = "1">Cargando fecha...</div>
+            <div class="hora no-seleccion" id="hora" data-formato = "1">Cargando hora...</div>
         </div>
     </header>
     
     <main>
+        {% with messages = get_flashed_messages(with_categories = false) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
         <section>
             <form action="/login-user" method="post">
                 <h3>Login</h3>
-                {% with messages = get_flashed_messages(with_categories = false) %}
-                        {% if messages %}
-                            {% for message in messages %}
-                            <div class="flash-message">
-                                <p>{{ message }}</p>
-                            </div>
-                            
-                            {% endfor %}
-                        {% endif %}
-                {% endwith %}
                 <div>
-                    
                     <input type="password" name="password" id="password">
                     <label for="password">Ingrese La Contraseña</label>
                 </div>

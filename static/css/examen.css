@@ -422,3 +422,30 @@ input:focus {
     background-color: #43a047;
     transform: translateY(-2px);
 }
+
+/* ===== EFECTO 3D GLOBAL PARA TODAS LAS TARJETAS ===== */
+
+.examen,
+.examenes-col,
+.form-container,
+.flash-message,
+.horarios-actuales,
+.dia,
+.promedio,
+.estudio,
+.estudios-col {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.examen:hover,
+.examenes-col:hover,
+.form-container:hover,
+.flash-message:hover,
+.horarios-actuales:hover,
+.dia:hover,
+.promedio:hover,
+.estudio:hover,
+.estudios-col:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 5px 10px rgba(0,0,0,0.4);
+}

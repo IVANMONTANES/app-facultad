@@ -1,6 +1,6 @@
-﻿/* ver_materias.css */
-
-/* Paleta y tipografía */
+﻿/* =========================
+   PALETA Y TIPOGRAFÍA
+========================= */
 :root {
     --color-fondo: #121212;
     --color-header: #1f1f1f;
@@ -8,11 +8,14 @@
     --color-texto: #e0e0e0;
     --color-acento: #4cafef;
     --color-flash: #ff4c4c;
-    --color-card-bg: #1a1a1a; /* base de la hoja */
-    --color-card-linea: #2c2c2c; /* lineas estilo rayado */
+    --color-card-bg: #1e1e1e;
+    --color-card-hover: #252525;
+    --color-linea: rgba(255,255,255,0.1); /* líneas de hoja rayada */
 }
 
-/* Reset básico */
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
@@ -28,7 +31,9 @@ body {
     flex-direction: column;
 }
 
-/* NAV */
+/* =========================
+   NAV
+========================= */
 nav.main-nav {
     background-color: var(--color-nav);
     padding: 1rem 2rem;
@@ -49,8 +54,8 @@ nav.main-nav a {
     font-size: 1.1rem;
     font-weight: 500;
     padding: 0.5rem 1rem;
-    transition: all 0.3s;
     border-radius: 5px;
+    transition: all 0.3s;
 }
 
 nav.main-nav a:hover {
@@ -58,12 +63,19 @@ nav.main-nav a:hover {
     color: #fff;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 header {
     background-color: var(--color-header);
     padding: 1.5rem 2rem;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #2a2a2a;
 }
 
 header h1 {
@@ -71,16 +83,6 @@ header h1 {
     font-weight: 600;
 }
 
-/* ===== Header Layout Mejorado ===== */
-
-header {
-    position: relative; /* necesario para posicionar la fecha */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Contenedor fecha y hora */
 .fecha-hora {
     position: absolute;
     right: 2rem;
@@ -90,14 +92,12 @@ header {
     color: #b0b0b0;
 }
 
-/* Fecha */
 .fecha {
     font-weight: bold;
     font-size: 1.2rem;
     opacity: 0.8;
 }
 
-/* Hora */
 .hora {
     font-weight: 600;
     font-size: 1rem;
@@ -105,17 +105,220 @@ header {
     letter-spacing: 2px;
 }
 
-
-header {
-    border-bottom: 1px solid #2a2a2a;
-}
-
-/* MAIN */
+/* =========================
+   MAIN
+========================= */
 main {
     flex: 1;
-    display: flex;
-    justify-content: center;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* =========================
+   BOTÓN VOLVER
+========================= */
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--color-acento);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 auto;
+}
+
+.btn-volver::before {
+    content: "←";
+    font-size: 1.8rem;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.btn-volver:hover {
+    background-color: #3390ff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   CONTENEDOR DE MATERIAS
+========================= */
+.materias-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.materia-card {
+    background-color: var(--color-card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    width: calc(50% - 2rem); /* máximo 2 por fila */
+    text-decoration: none;
+    color: var(--color-texto);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    
+    /* Hoja rayada */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 24px,
+        var(--color-linea) 25px
+    );
+}
+
+.materia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.7);
+}
+
+.materia-nombre {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-acento);
+    font-weight: 600;
+}
+
+.materia-info {
+    margin-bottom: 0.8rem;
+}
+
+.materia-info strong {
+    color: var(--color-acento);
+}
+
+.materia-info p {
+    color: #ccc;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .materias-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .materia-card {
+        width: 90%; /* ocupa casi todo en móvil */
+    }
+
+    nav.main-nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.materia-nombre {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-acento);
+    margin: 0 auto 0.8rem auto;  /* centra horizontalmente y separa un poco del contenido */
+    text-align: center;
+    position: relative;
+}
+
+/* Subrayado debajo del nombre */
+.materia-nombre::after {
+    content: "";
+    display: block;
+    width: 50%; /* ocupa la mitad de la card */
+    height: 3px;
+    background-color: var(--color-acento);
+    margin: 0.4rem auto 0 auto; /* espacio arriba del subrayado y centrado */
+    border-radius: 2px;
+}
+
+/* Contenedor de materias */
+.materias-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* centra las filas */
+    gap: 2rem; /* espacio entre cards */
+    max-width: 900px; /* limita el ancho de todas las filas */
+    margin: 0 auto; /* centra el contenedor */
+}
+
+/* Cards individuales */
+.materia-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #fdfdf5; /* hoja rayada clara */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.05) 0px,
+        rgba(0,0,0,0.05) 1px,
+        transparent 1px,
+        transparent 25px
+    ); /* rayas horizontales simulando hoja */
+    border-radius: 12px;
+    padding: 2rem;
+    width: 45%; /* menos ancho para que entren 2 por fila máximo */
+    min-height: 250px; /* más altas */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    text-decoration: none;
+    color: var(--color-texto);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.materia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+}
+
+/* Nombre de la materia centrado con subrayado */
+.materia-nombre {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-acento);
+    margin: 0 auto 0.8rem auto;
+    text-align: center;
+    position: relative;
+}
+
+.materia-nombre::after {
+    content: "";
+    display: block;
+    width: 50%; /* mitad de la card */
+    height: 3px;
+    background-color: var(--color-acento);
+    margin: 0.4rem auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Información de la materia */
+.materia-info {
+    margin-top: 0.6rem;
+}
+
+.materia-info strong {
+    font-weight: 600;
+}
+
+.materia-info p {
+    margin: 0.2rem 0 0 0;
+    font-size: 1rem;
+}
+
+/* Responsive: en pantallas pequeñas una card por fila */
+@media (max-width: 700px) {
+    .materia-card {
+        width: 90%;
+    }
 }
 
 /* Contenedor de materias */
@@ -123,71 +326,81 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem; /* espacio entre filas y columnas */
-    width: 80%; /* ancho total de la fila */
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Card individual */
+/* Cards tipo hoja */
 .materia-card {
-    background-color: var(--color-card-bg);
-    width: calc(50% - 1rem); /* dos por fila, con gap */
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-    text-decoration: none;
-    color: var(--color-texto);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    position: relative;
-
-    /* efecto de hoja rayada */
+    justify-content: flex-start;
+    background-color: #fff; /* color de hoja */
     background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 20px,
-        rgba(255,255,255,0.05) 21px
+        to bottom,
+        #d0e7ff 0px,  /* líneas azul claro */
+        #d0e7ff 1px,
+        transparent 1px,
+        transparent 25px
     );
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    width: 45%;
+    min-height: 260px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-decoration: none;
+    color: #1a1a1a; /* lápiz negro */
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Nombre de la materia destacado */
+.materia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+}
+
+/* Nombre de la materia centrado y subrayado */
 .materia-nombre {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #1e88e5; /* azul, puedes poner #e53935 para rojo */
     text-align: center;
+    margin-bottom: 1rem;
     position: relative;
 }
 
-/* Subrayado parcial para resaltar el nombre */
 .materia-nombre::after {
     content: "";
     display: block;
-    width: 60%;
+    width: 50%;
     height: 3px;
-    background-color: var(--color-acento);
-    margin: 0.3rem auto 0 auto;
+    background-color: currentColor; /* mismo color que el título */
+    margin: 0.4rem auto 0 auto;
     border-radius: 2px;
 }
 
-/* Info de la materia */
+/* Información escrita con "lápiz" */
 .materia-info {
-    margin-bottom: 1rem;
-    font-size: 1.05rem;
-    color: #cfcfcf;
+    margin-top: 0.6rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
     line-height: 1.4;
+    color: #222; /* gris oscuro/lápiz */
 }
 
 .materia-info strong {
-    display: inline-block;
-    margin-bottom: 0.3rem;
     font-weight: 600;
-    color: var(--color-acento);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+.materia-info p {
+    margin: 0.2rem 0 0 0;
+    font-size: 1rem;
+    color: #121212;
+}
+
+/* Responsive: 1 card por fila en pantallas pequeñas */
+@media (max-width: 700px) {
     .materia-card {
-        width: 80%; /* una sola por fila en pantallas pequeñas */
+        width: 90%;
     }
 }
