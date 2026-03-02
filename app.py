@@ -194,7 +194,7 @@ def get_materia_page(id_materia: int) -> Response:
 
     if "logueado" in session:
         # obtenemos la materia por el id
-        materia = materiasDb.obtener_materia_por_id(id_materia)
+        materia = materiasDb.obtener_materia(id_materia)
 
         # verificamos que se haya traido una materia #
         if materia:
@@ -230,7 +230,7 @@ def get_horarios_page(id_materia) -> Response:
     """
     if "logueado" in session:
         # obtenemos la materia por el id #
-        materia = materiasDb.obtener_materia_por_id(id_materia)
+        materia = materiasDb.obtener_materia(id_materia)
 
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
         if materia is None:
@@ -238,7 +238,7 @@ def get_horarios_page(id_materia) -> Response:
             return redirect("/panel")
 
         # traemos los horarios de la materia de la base de datos #
-        horarios_traidos = horariosDb.obtener_horario_por_id_materia(id_materia)
+        horarios_traidos = horariosDb.obtener_horario_materia(id_materia)
 
         # funcion que se encarga de devolver el diccionario bien cargado #
         horarios = Horario.obtener_dias(horarios_traidos)
@@ -275,7 +275,7 @@ def get_examenes_page(id_materia) -> Response:
 
     if "logueado" in session:
         # obtenemos la materia con ese id #
-        materia = materiasDb.obtener_materia_por_id(id_materia)
+        materia = materiasDb.obtener_materia(id_materia)
 
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
         if materia is None:
@@ -283,10 +283,10 @@ def get_examenes_page(id_materia) -> Response:
             return redirect("/panel")
         
         # obtenemos los examenes pendientes de la materia #
-        examenes_pendientes_materia = examenDb.obtener_examenes_por_id_materia(id_materia,0)
+        examenes_pendientes_materia = examenDb.obtener_examenes_materia(id_materia,0)
 
         # obtenemos los examenes realizados de la materia #
-        examenes_realizados_materia = examenDb.obtener_examenes_por_id_materia(id_materia,1)
+        examenes_realizados_materia = examenDb.obtener_examenes_materia(id_materia,1)
 
         
         return render_template("examenes.html",materia = materia, examenes_pendientes = examenes_pendientes_materia, examenes_realizados = examenes_realizados_materia)
@@ -320,7 +320,7 @@ def get_estudio_page(id_materia) -> Response:
 
     if "logueado" in session:
         # obtenemos la materia con ese id #
-        materia = materiasDb.obtener_materia_por_id(id_materia)
+        materia = materiasDb.obtener_materia(id_materia)
 
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
         if materia is None:
@@ -461,7 +461,23 @@ def crear_materia() -> Response:
 # ---------- HORARIOS ------------ #
 
 @app.route("/guardar-horarios", methods = ["POST"])
-def save_horarios():
+def save_horarios() -> Response:
+    """
+    gestiona la insercion de horarios a la base de datos
+
+    parametros:
+        no recibe
+
+    comportamiento:
+        - recupera los datos cargados por el usuario
+        - crea un diccionario donde se asocia el dia con los datos que el usuario cargo
+        - se llama a la funcion actualizar_horarios que se encarga de actualizar los horarios correctamente
+        - redirige hacia /horarios/id_materia
+
+    retorna:
+        Response: una response de redireccionamiento
+
+    """
     # recibimos los datos traidos del formulario #
     id_materia = int(request.form["id_materia"])
     lunes = request.form["lunes"]
@@ -481,23 +497,10 @@ def save_horarios():
         "Viernes": viernes,
         "Sabado": sabado,
         "Domingo": domingo
-        
     }
     
     
-    horarios_materia = horariosDb.obtener_horario_por_id_materia(id_materia)
-    # verificamos si ya hay horarios cargados para este materia #
-    if horarios_materia:
-        for dia,horario in diccionario_horarios.items():
-            # verificamos si el horario esta vacio, si lo esta dejamos el horario anterior #
-            if not horario:
-                diccionario_horarios[dia] = horarios_materia[dia]
-        
-        # actualizamos los horarios en la base de datos #
-        horariosDb.modificar_horarios(diccionario_horarios,id_materia)
-    # en el caso de no haber un horario cargado lo creamos #    
-    else:
-        horariosDb.insertar_horarios(diccionario_horarios,id_materia)
+    Horario.actualizar_horarios(id_materia,diccionario_horarios)
 
     flash("horarios modificados con exito")
     return redirect(f"/horarios/{id_materia}")
@@ -507,13 +510,27 @@ def save_horarios():
 # ------------- ESTUDIO --------------- #
 
 @app.route("/guardar-estudio", methods = ["POST"])
-def guardar_estudio() -> None:
+def guardar_estudio() -> Response:
+    """
+    gestiona la insercion de las horas de estudio de una materia
+
+    parametros:
+        no recibe
+
+    comportamiento:
+        - recupera los datos cargados por el usuario
+        - llama a la funcion insertar_estudio que se encarga de insertar el estudio en la base de datos
+        - redirecciona hacia /estudio/id_materia
+
+    retorna:
+        Response: una response de redireccionamiento
+    
+    """
     # obtenemos los datos cargados en el formulario #
     id_materia = int(request.form["id_materia"])
     horas_estudio = int(request.form["horas_estudio"])
     fecha = request.form["fecha"]
 
-    print(f"fecha guardada {fecha}")
 
     # insertamos el estudio en la base de datos #
     estudioDb.insertar_estudio(id_materia,horas_estudio,fecha)
@@ -526,8 +543,23 @@ def guardar_estudio() -> None:
 
 # ------------ EXAMEN ---------------- #
 
-@app.route("/crear-examen", methods = ["POST"])
-def crear_examen() -> None:
+@app.route("/guardar-examen", methods = ["POST"])
+def crear_examen() -> Response:
+    """
+    gestiona la insercion de examenes
+
+    parametros:
+        no recibe
+
+    comportamiento:
+        - recupera los datos cargados por el usuario
+        - llama a la funcion insertar_examen que se encarga de gestionar la insersecion del examen en la base de datos
+        - redirecciona hacia examanes/id_materia
+
+    retorna:
+        Response: una response de redireccionamiento
+
+    """
     # obtenemos los datos cargados en el formulario #
     id_materia = int(request.form["id_materia"])
     nombre = request.form["nombre"]
@@ -540,8 +572,24 @@ def crear_examen() -> None:
     flash("examen agregado correctamente")
     return redirect(f"examenes/{id_materia}")
 
+
 @app.route("/realizar-examen", methods = ["POST"])
-def realizar_examen() -> None:
+def realizar_examen() -> Response:
+    """
+    gestiona la marcacion de examenes como realizados
+
+    parametros:
+        no recibe
+
+    comportamiento:
+        - obtiene los datos cargados por el usuario
+        - llama a la funcion actualizar_estado_examen que se encarga de actualizar el examen como realizado
+        - redirecciona hacia examenes/id_materia
+
+    retorna:
+        Response: una response de redireccionamiento
+    
+    """
     # obtenemos los datos cargados en el formulario #
     id_examen = int(request.form["id_examen"])
     id_materia = int(request.form["id_materia"])
@@ -549,7 +597,7 @@ def realizar_examen() -> None:
     estado_actual = int(request.form["estado_actual"])
 
     # actualizamos el examen #
-    examenDb.actualizar_estado_examen_por_id(id_examen,nota,estado_actual)
+    examenDb.actualizar_estado_examen(id_examen,nota,estado_actual)
     
     if estado_actual == 0:
         flash("se realizo el examen correctamente")
@@ -558,15 +606,31 @@ def realizar_examen() -> None:
     return redirect(f"examenes/{id_materia}")
 
 
+
 @app.route("/marcar-examen-pendiente", methods = ["POST"])
-def marcar_examen_pendiente() -> None:
+def marcar_examen_pendiente() -> Response:
+    """
+    gestiona la marcacion de una examen como pendiente
+
+    parametros:
+        no recibe
+
+    comportamiento:
+        - obtiene los datos cargados por el usuario
+        - llama a la funcion actualizar_estado_examen que se encarga de marcar el examen como pendiente
+        - redirecciona hacia examenes/id_materia
+
+    retorna:
+        Response: una response de redireccionamiento
+    
+    """
     # obtenemos los datos cargados en el formulario #
     id_examen = int(request.form["id_examen"])
     id_materia = int(request.form["id_materia"])
     estado_actual = int(request.form["estado_actual"])
 
     # actualizamos el examen #
-    examenDb.actualizar_estado_examen_por_id(id_examen,None,estado_actual)
+    examenDb.actualizar_estado_examen(id_examen,None,estado_actual)
 
     if estado_actual == 0:
         flash("se realizo el examen correctamente")
@@ -577,36 +641,6 @@ def marcar_examen_pendiente() -> None:
 # ------------- FIN EXAMEN ------------- #
 
 #-------------------- FIN FUNCIONES QUE PROCESAN DATOS -----------------------#
-
-
-
-
-
-
-
-
-
-
-    
-       
-
-    
-    
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     dbBase.crear_tablas()

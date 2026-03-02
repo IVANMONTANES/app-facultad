@@ -26,7 +26,7 @@ def insertar_examen(id_materia: int, nombre: str, fecha: str, hora: str) -> None
         """,(id_materia,nombre,fecha,hora))
         con.commit()
 
-def obtener_examenes_por_id_materia(id_materia: int, estado_buscado:int) -> list[Examen]:
+def obtener_examenes_materia(id_materia: int, estado_buscado:int) -> list[Examen]:
     with sqlite3.connect(rutaDb) as con:
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
@@ -40,7 +40,7 @@ def obtener_examenes_por_id_materia(id_materia: int, estado_buscado:int) -> list
 
         return examenes
     
-def actualizar_estado_examen_por_id(id_examen: int,nota: int,estado_actual:int):
+def actualizar_estado_examen(id_examen: int,nota: int,estado_actual:int):
     nuevo_estado = 0 if estado_actual == 1 else 1
     with sqlite3.connect(rutaDb) as con:
         cursor = con.cursor()

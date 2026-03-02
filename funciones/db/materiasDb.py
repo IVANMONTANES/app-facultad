@@ -27,7 +27,7 @@ def insertar_materia(nombre: str, descripcion: str, carga: int) -> None:
         con.commit()
 
 
-def obtener_materia_por_id(id_materia: int) -> Materia:
+def obtener_materia(id_materia: int) -> Materia:
 
     with sqlite3.connect(rutaDb) as con:
         con.row_factory = sqlite3.Row

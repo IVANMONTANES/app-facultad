@@ -55,7 +55,7 @@ def modificar_horarios(horarios: dict, id_materia: int) -> None:
         con.commit()
 
 
-def obtener_horario_por_id_materia(id_materia: int) -> dict:
+def obtener_horario_materia(id_materia: int) -> dict:
     with sqlite3.connect(rutaDb) as con:
         con.row_factory = sqlite3.Row
 
