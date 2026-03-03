@@ -33,22 +33,29 @@
     <section class="materias-container">
         {% if materias %}
             {% for materia in materias %}
-            <a href="/materia/{{ materia.id_materia }}" class="materia-card">
-                <!-- Nombre de la materia -->
-                <h3 class="materia-nombre">{{ materia.nombre }}</h3>
+            <div class="materia-card">
+                <a href="/materia/{{ materia.id_materia }}" class="materia-link">
+                    <!-- Nombre de la materia -->
+                    <h3 class="materia-nombre">{{ materia.nombre }}</h3>
 
-                <!-- Descripción -->
-                <div class="materia-info">
-                    <strong>Descripción:</strong>
-                    <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
-                </div>
+                    <!-- Descripción -->
+                    <div class="materia-info">
+                        <strong>Descripción:</strong>
+                        <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
+                    </div>
 
-                <!-- Carga semanal -->
-                <div class="materia-info">
-                    <strong>Carga semanal:</strong>
-                    <p>{{ materia.carga }} hs</p>
-                </div>
-            </a>
+                    <!-- Carga semanal -->
+                    <div class="materia-info">
+                        <strong>Carga semanal:</strong>
+                        <p>{{ materia.carga }} hs</p>
+                    </div>
+
+                    <div class="materia-opciones">
+                        <a href="/eliminar-materia/{{ materia.id_materia }}" class=" eliminar">🗑 Eliminar</a>
+                        <a href="/modificar-materia/{{ materia.id_materia }}" class="modificar">✏ Modificar</a>
+                    </div>
+                </a>
+            </div>
             {% endfor %}
         {% else %}
             <p>no hay materias cargadas todavia...</p>

@@ -33,7 +33,7 @@ def obtener_materia(id_materia: int) -> Materia:
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
         cursor.execute("""
-            SELECT * FROM MATERIAS where id_materia = ?""",(id_materia,))
+            SELECT * FROM materias where id_materia = ?""",(id_materia,))
         
         fila = cursor.fetchone()
 
@@ -55,6 +55,14 @@ def obtener_materias():
         materias = cursor.fetchall()
         listaMaterias = [Materia(materiaFila["id_materia"],materiaFila["nombre"],materiaFila["descripcion"],materiaFila["carga_semanal"]) for materiaFila in materias]
         return listaMaterias
+
+
+def eliminar_materia(id_materia: int) -> None:
+    with sqlite3.connect(rutaDb) as con:
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        cursor.execute("""
+            DELETE FROM materias WHERE id_materia = ?""",(id_materia,))
         
 
 

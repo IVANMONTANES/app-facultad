@@ -260,9 +260,9 @@ main {
     background-color: #fdfdf5; /* hoja rayada clara */
     background-image: repeating-linear-gradient(
         to bottom,
-        rgba(0,0,0,0.05) 0px,
-        rgba(0,0,0,0.05) 1px,
-        transparent 1px,
+        rgba(0,0,0,0.11) 0px,
+        rgba(0,0,0,0.11) 1px,
+        transparent 0px,
         transparent 25px
     ); /* rayas horizontales simulando hoja */
     border-radius: 12px;
@@ -273,6 +273,10 @@ main {
     text-decoration: none;
     color: var(--color-texto);
     transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.materia-link {
+    text-decoration: none;
 }
 
 .materia-card:hover {
@@ -314,6 +318,52 @@ main {
     font-size: 1rem;
 }
 
+.materia-opciones {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.eliminar {
+     background-color: #e53935; /* rojo */
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+}
+
+.eliminar:hover {
+    background-color: #b71c1c;
+    transform: translateY(-3px);
+}
+
+.modificar {
+    background-color: #ff9800; /* naranja */
+    color: #fff;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-modificar:hover {
+    background-color: #f57c00;
+    transform: translateY(-2px);
+}
+
+
+
 /* Responsive: en pantallas pequeñas una card por fila */
 @media (max-width: 700px) {
     .materia-card {
@@ -331,28 +381,7 @@ main {
     margin: 0 auto;
 }
 
-/* Cards tipo hoja */
-.materia-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: #fff; /* color de hoja */
-    background-image: repeating-linear-gradient(
-        to bottom,
-        #d0e7ff 0px,  /* líneas azul claro */
-        #d0e7ff 1px,
-        transparent 1px,
-        transparent 25px
-    );
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-    width: 45%;
-    min-height: 260px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    text-decoration: none;
-    color: #1a1a1a; /* lápiz negro */
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+
 
 .materia-card:hover {
     transform: translateY(-5px);
@@ -404,3 +433,4 @@ main {
         width: 90%;
     }
 }
+

@@ -455,6 +455,43 @@ def crear_materia() -> Response:
     flash(f"se creo la materia {nombre}")
     return redirect("/cargar-materia")
 
+
+@app.route("/eliminar-materia/<int:id_materia>")
+def eliminar_materia(id_materia: int):
+    """
+    gestiona la eliminacion de una materia de la base de datos
+
+    parametros:
+        id_materia (int): id de la materia
+
+    comportamiento:
+        - si el usuario esta logueado:
+            - se busca la materia en la base de datos
+            - si la materia no existe redirecciona hacia /panel
+            - si la materia existe se llama a la funcion eliminar_materia que se encarga de la eliminacion de la materia de la base de datos
+            - redirecciona hacia /ver-materias
+        - si el usuario no esta logueado:
+            - redirige hacia /login
+
+    retorna:
+        Response: una response de redireccionamiento
+    """
+    if "logueado" in session:
+        # obtenemos la materia #
+        materia = materiasDb.obtener_materia(id_materia)
+
+        # verificamos que se haya traido una materia #
+        if materia is None:
+            flash("no existe la materia ingresada")
+            return redirect("/panel")
+
+
+        materiasDb.eliminar_materia(id_materia)
+        return redirect("/ver-materias")
+    
+    flash("no esta logueado")
+    return redirect("/login")
+
 # ------------ FIN MATERIAS --------------#
 
 
@@ -641,6 +678,8 @@ def marcar_examen_pendiente() -> Response:
 # ------------- FIN EXAMEN ------------- #
 
 #-------------------- FIN FUNCIONES QUE PROCESAN DATOS -----------------------#
+
+
 
 if __name__ == "__main__":
     dbBase.crear_tablas()
