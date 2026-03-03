@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Materia</title>
+    <link rel="stylesheet" href="../static/css/modificar_materia.css">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/panel">Panel</a></li>
+            <li><a href="/cargar-materia">Crear Materia</a></li>
+            <li><a href="/ver-materias">Ver Materias</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <h1>FACULTAD ORGANIZACIÓN</h1>
+        <div class="fecha-hora">
+            <div class="fecha no-seleccion" id="fecha" data-formato = "1">Cargando fecha...</div>
+            <div class="hora no-seleccion" id="hora" data-formato = "1">Cargando hora...</div>
+        </div>
+    </header>
+
+    
+
+    <!-- MAIN -->
+    <main>
+        <!-- BOTÓN VOLVER -->
+        <a href="/ver-materias" class="btn-volver">Volver</a>
+
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash-wrapper">
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- FORMULARIO -->
+        <div class="form-container">
+            <h2>EDITAR {{ materia.nombre }}</h2>
+            <form action="/actualizar-materia/{{ materia.id_materia }}" method="POST" class="form-modificar">
+                <div class="input-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" value="{{ materia.nombre }}" class="nombre-input">
+                </div>
+                <div class="input-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" rows="3" class="descripcion-textArea">{{ materia.descripcion }}</textarea>
+                </div>
+                <div class="input-group">
+                    <label for="carga">Carga Horaria</label>
+                    <input type="number" name="carga" id="carga" value="{{ materia.carga }}" class="carga-input">
+                </div>
+                <button type="submit" class="btn-guardar">Modificar Materia</button>
+            </form>
+        </div>
+
+        <!-- VISTA COMPARATIVA DE MATERIAS -->
+        <div class="materias-comparativa">
+            <!-- Materia Original -->
+            <!-- Nombre de la materia -->
+            <div class="materia-card">
+                    <!-- Nombre de la materia -->
+                    <h3 class="materia-nombre">{{ materia.nombre }}</h3>
+
+                    <!-- Descripción -->
+                    <div class="materia-info">
+                        <strong>Descripción:</strong>
+                        <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
+                    </div>
+
+                    <!-- Carga semanal -->
+                    <div class="materia-info">
+                        <strong>Carga semanal:</strong>
+                        <p>{{ materia.carga }} hs</p>
+                    </div>
+
+                </a>
+            </div>
+            
+            <!-- Materia Vista Previa -->
+            <div class="materia-card">
+                    <!-- Nombre de la materia -->
+                    <h3 class="materia-nombre materia-nombre-modificar">{{ materia.nombre }}</h3>
+
+                    <!-- Descripción -->
+                    <div class="materia-info">
+                        <strong>Descripción:</strong>
+                        <p class="materia-descripcion-modificar">{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
+                    </div>
+
+                    <!-- Carga semanal -->
+                    <div class="materia-info">
+                        <strong>Carga semanal:</strong>
+                        <p class="materia-carga-modificar">{{ materia.carga }} hs</p>
+                    </div>
+
+                </a>
+            </div>
+
+        </div>
+
+        
+
+    </main>
+    <script src="../static/js/hoja.js"></script>
+</body>
+</html>

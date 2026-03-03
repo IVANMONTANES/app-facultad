@@ -1,0 +1,355 @@
+﻿/* ===================================
+   PALETA DE COLORES Y TIPOGRAFÍA
+=================================== */
+:root {
+    --color-fondo: #121212;
+    --color-header: #1f1f1f;
+    --color-nav: #1a1a1a;
+    --color-texto: #e0e0e0;
+    --color-acento: #4cafef;
+    --color-flash: #ff4c4c;
+    --color-input-bg: #1a1a1a;
+    --color-input-border: #333;
+    --color-card-bg: #1f1f1f;
+    --color-card-hover: #252525;
+    --color-linea: rgba(255,255,255,0.1); /* líneas de hoja rayada */
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   NAV
+========================= */
+nav.main-nav {
+    background-color: var(--color-nav);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav.main-nav a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+nav.main-nav a:hover {
+    background-color: var(--color-acento);
+    color: #fff;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+    background-color: var(--color-header);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.fecha-hora {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+    color: #b0b0b0;
+}
+
+.fecha {
+    font-weight: bold;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.hora {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-acento);
+    letter-spacing: 2px;
+}
+
+/* =========================
+   MAIN
+========================= */
+main {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* =========================
+   BOTÓN VOLVER
+========================= */
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--color-acento);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 auto;
+}
+
+.btn-volver::before {
+    content: "←";
+    font-size: 1.8rem;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.btn-volver:hover {
+    background-color: #3390ff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+.form-container {
+    width: 40%;
+    background-color: var(--color-card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--color-texto);
+    position: relative;
+}
+
+.form-container h2::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 30%;
+    background-color: var(--color-acento);
+    margin: 5px auto 0 auto;
+    border-radius: 2px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--color-acento);
+}
+
+.input-group input,
+.input-group textarea {
+    padding: 0.6rem 1rem;
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: 6px;
+    color: var(--color-texto);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: var(--color-acento);
+}
+
+.btn-guardar {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-acento);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.btn-guardar:hover {
+    background-color: #3390ff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   COMPARATIVA DE MATERIAS
+========================= */
+.materias-comparativa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto;
+    position: relative;
+}
+
+
+
+/* Cards individuales */
+.materia-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 45%;
+    min-height: 300px;
+    background-color: #fdfdf5; /* hoja original */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.11) 0px,
+        rgba(0,0,0,0.11) 1px,
+        transparent 0px,
+        transparent 25px
+    );
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    color: #121212;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+
+.materia-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Nombre de materia */
+.materia-nombre {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e88e5;
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+
+/* Info de materia */
+.materia-card p {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* =========================
+   EFECTO 3D GENERAL
+========================= */
+.form-container, .materias-comparativa, .btn-volver {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .form-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+    .materias-comparativa {
+        flex-direction: column;
+    }
+    .materia-card {
+        width: 90%;
+    }
+    nav.main-nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* =========================
+   COMPARATIVA: misma estética para ambas materias
+========================= */
+#materia-original,
+#materia-vista-previa {
+    background-color: #fdfdf5; /* hoja rayada clara */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.11) 0px,
+        rgba(0,0,0,0.11) 1px,
+        transparent 0px,
+        transparent 25px
+    );
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    color: #121212;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+/* Ajuste de la flecha */
+
+
+.materia-info strong {
+    color: var(--color-acento);
+}
+
+.materia-info p {
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+/* =========================
+   Tamaño mínimo para las materias comparativas
+========================= */

@@ -182,3 +182,33 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarHora();
     })
 })
+
+// ------------------------------------------ SECCION MODIFICAR INTERACTIVO ----------------------------------------- //
+document.addEventListener("DOMContentLoaded", () => {
+    // obtenemos los parrafos que se van a modificar dinamicamente //
+    let materia_nombre_modificar = document.querySelector(".materia-nombre-modificar");
+    let materia_descripcion_modificar = document.querySelector(".materia-descripcion-modificar");
+    let materia_carga_modificar = document.querySelector(".materia-carga-modificar");
+
+    // obtenemos los inputs //
+    let nombre_input = document.querySelector(".nombre-input");
+    let descripcion_textArea = document.querySelector(".descripcion-textArea")
+    let carga_input = document.querySelector(".carga-input");
+
+    // asociamos los eventos //
+    nombre_input.addEventListener("input", (event) => {
+        materia_nombre_modificar.textContent = nombre_input.value;
+    })
+
+    descripcion_textArea.addEventListener("input", (event) => {
+        materia_descripcion_modificar.textContent = descripcion_textArea.value;
+    })
+
+    carga_input.addEventListener("input", (event) => {
+        if (carga_input.value.length === 0){
+            materia_carga_modificar.textContent = "";
+            return
+        }
+        materia_carga_modificar.textContent = carga_input.value + " hs";
+    })
+})

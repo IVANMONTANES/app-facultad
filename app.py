@@ -251,7 +251,7 @@ def get_horarios_page(id_materia) -> Response:
 
 
 @app.route("/examenes/<int:id_materia>")
-def get_examenes_page(id_materia) -> Response:
+def get_examenes_page(id_materia: int) -> Response:
     """
 
     gestiona el acceso a la ruta /examenes/id_materia del proyecto
@@ -297,7 +297,7 @@ def get_examenes_page(id_materia) -> Response:
 
     
 @app.route("/estudio/<int:id_materia>")
-def get_estudio_page(id_materia) -> Response:
+def get_estudio_page(id_materia: int) -> Response:
     """
     gestiona el ingreso a la ruta /estudio/id_materia del proyecto
 
@@ -340,6 +340,42 @@ def get_estudio_page(id_materia) -> Response:
 
     flash("no esta logueado")
     return redirect("/login")
+
+@app.route(("/modificar-materia-pagina/<int:id_materia>"))
+def get_modificar_materia_page(id_materia: int) -> Response:
+    """
+    gestiona el ingreso a la ruta /modificar-materia-pagina/id_materia del proyecto
+
+    parametros:
+        id_materia (int): id de la materia
+
+    comportamiento:
+        - si esta logueado:
+            - se busca la materia en la base de datos
+            - si la materia no existe redirige hacia /panel
+            - si la materia existe se renderiza modificar_materia.html con la materia
+        - si no esta logueado:
+            - redirige hacia /login
+
+    retorna:
+        Response: de redireccionamiento o de renderizado segun el flujo
+        
+    """
+    if "logueado" in session:
+        # obtenemos la materia #
+        materia = materiasDb.obtener_materia(id_materia)
+
+        # verificamos que la materia exista #
+
+        if materia is None:
+            flash("no existe la materia ingresada")
+            return redirect("/panel")
+        
+        return render_template("modificar_materia.html",materia = materia)
+    
+    flash("no esta logueado")
+    return redirect("/login")
+
     
 # ------------------------ FIN FUNCIONES DE DIRECCIONAMIENTO ------------------------------ #
 
