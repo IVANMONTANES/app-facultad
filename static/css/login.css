@@ -1,203 +1,161 @@
-﻿/* login.css */
-
-/* Paleta de colores oscuros */
-:root {
-    --color-fondo: #121212;
-    --color-header: #1f1f1f;
-    --color-texto: #e0e0e0;
-    --color-acento: #4cafef; /* Azul suave para botones o detalles */
-    --color-input-bg: #1a1a1a;
-    --color-input-border: #333;
-    --color-flash: #ff4c4c;
+﻿* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
+:root {
+    font-family: sans-serif;
+    font-size: 16px;
+    /* VARIABLES CSS */
+    --color-header: #2e2e2e;
+    --color-header-h1: #fffafa;
+    --color-sombra-header: #000;
+    --fecha-color: #989797;
+    --fecha-color-hover: #aeaeae;
+    --hora-color: #6293e8;
+    --body-color: #0a0a0a;
+    --flash-color-error: #d24;
+
+}
+
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 30px;
+    height: 100px;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-header);
+    box-shadow: 0 1px var(--color-sombra-header);
+}
+
+header > h1 {
+    color: var(--color-header-h1)
+}
+
+.fecha-hora {
+    position: absolute;
+    right: 40px;
+}
+
+.fecha {
+    color: var(--fecha-color);
+    font-weight: bold;
+    font-size: 21px;
+    margin-bottom: 3px;
+}
+
+.fecha:hover {
+    color: var(--fecha-color-hover);
+}
+
+.hora {
+    color: var(--hora-color);
+    text-align: right;
+    font-size: 18px;
 }
 
 body {
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
+    background-color: var(--body-color);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
-/* Header */
-header {
-    background-color: var(--color-header);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-
-header h1 {
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-/* ===== Header Layout Mejorado ===== */
-
-header {
-    position: relative; /* necesario para posicionar la fecha */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Contenedor fecha y hora */
-.fecha-hora {
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: right;
-    color: #b0b0b0;
-}
-
-/* Fecha */
-.fecha {
-    font-weight: bold;
-    font-size: 1.2rem;
-    opacity: 0.8;
-}
-
-/* Hora */
-.hora {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-acento);
-    letter-spacing: 2px;
-}
-
-
-header {
-    border-bottom: 1px solid #2a2a2a;
-}
-/* Centrar login */
 main {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 2rem;
-}
-
-section {
-    background-color: #1a1a1a;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-}
-
-section h3 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-}
-
-/* Inputs y labels */
-form div {
-    position: relative;
-    margin-bottom: 1.5rem;
-}
-
-input[type="password"] {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: var(--color-input-bg);
-    border: 1px solid var(--color-input-border);
-    border-radius: 5px;
-    color: var(--color-texto);
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-input[type="password"]:focus {
-    border-color: var(--color-acento);
-}
-
-label {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888;
-    pointer-events: none;
-    transition: all 0.3s;
-}
-
-input:focus + label,
-input:not(:placeholder-shown) + label {
-    top: -0.6rem;
-    left: 0.8rem;
-    font-size: 0.8rem;
-    color: var(--color-acento);
-    background-color: #1a1a1a;
-    padding: 0 0.2rem;
-}
-
-/* Botón */
-input[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--color-acento);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-    background-color: #3390ff;
-}
-
-/* Mensajes flash */
-.flash-message {
-    background-color: var(--color-flash);
-    padding: 0.75rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* Responsive */
-@media (max-width: 500px) {
-    section {
-        padding: 1.5rem;
-    }
-
-    header h1 {
-        font-size: 1.4rem;
-    }
+    min-height: calc(100vh - 100px);
 }
 
 .flash-message {
     width: 80%;
-    background-color: var(--color-flash);
-    padding: 1rem;
-    border-radius: 8px;
+    margin: auto;
+    background-color: var(--flash-color-error);
+    color: #dff;
     text-align: center;
-    font-weight: 600;
-    margin: 0 auto 2rem auto; /* centrado horizontal con margin auto */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    padding: 14px 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
-/* contenedor opcional para centrar todo */
-.flash-container {
+form {
+    width: 30%;
+    max-width: 530px;
+    margin: 40px auto 0 auto;
+    padding: 52px 0;
+    background-color: var(--color-header);
+    box-shadow: 10px black;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+form:hover {
+    transform: translateY(-6px) scale(1.04);
+}
+
+form > h3 {
+    color: var(--color-header-h1);
+    font-size: 1.5rem;
+    
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    color: var(--hora-color);
+    width: 80%;
+    margin: 15px 0;
+}
+
+label {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    margin-left: 0.3rem;
+}
+
+input {
+    color: var(--color-header-h1);
+    font-size: 1.2rem;
+    padding: 0 3px;
+}
+
+input[type="password"] {
+    background-color: var(--color-header);
+    border: 1.5px solid var(--hora-color);
+    border-radius: 7px;
+    padding: 20px 10px;
+}
+
+input[type="submit"] {
+    background-color: var(--hora-color);
+    color: var(--color-header-h1);
+    padding: 16px 0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1090px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fecha-hora {
+       display: none;
+    }
+}
+
+@media (max-width: 850px) {
+    form {
+        width: 80%;
+    }
 }

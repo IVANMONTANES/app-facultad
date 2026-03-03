@@ -17,22 +17,23 @@
     </header>
     
     <main>
-        {% with messages = get_flashed_messages(with_categories = false) %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash-message">
-                        <p>{{ message }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        
         
         <section>
+            {% with messages = get_flashed_messages(with_categories = false) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash-message">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}   
             <form action="/login-user" method="post">
                 <h3>Login</h3>
                 <div>
-                    <input type="password" name="password" id="password">
                     <label for="password">Ingrese La Contraseña</label>
+                    <input type="password" name="password" id="password" class="password" placeholder="ingrese la contraseña">
                 </div>
 
                 <div>
