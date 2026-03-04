@@ -1,233 +1,322 @@
-﻿/* horarios.css */
-
-/* Usamos las variables de panel.css */
-:root {
-    --color-fondo: #121212;
-    --color-header: #1f1f1f;
-    --color-nav: #1a1a1a;
-    --color-texto: #e0e0e0;
-    --color-acento: #4cafef;
-    --color-flash: #ff4c4c;
-    --color-card-bg: #1e1e1e;
-    --color-card-acento: #333;
-}
-
-/* Reset y tipografía */
-* {
+﻿* {
     margin: 0;
+    border: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
 }
 
-body {
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-    min-height: 100vh;
+:root {
+    font-family: sans-serif;
+    font-size: 16px;
+    /* VARIABLES CSS */
+    --color-header: #242424;
+    --color-header-h1: #fffafa;
+    --color-sombra-header: #000;
+    --fecha-color: #989797;
+    --fecha-color-hover: #aeaeae;
+    --hora-color: #3677e8;
+    --nav-color : #181818;
+    --body-color: #181818;
+    --flash-color-error: #d24;
+    --flash-color-success: #4CAF50;
+    --color-ver: #28a745;
+    --color-eliminar: #dc3545;
+    --color-modificar: #6f42c1;
+}
+
+.main-nav {
+    height: 80px;
     display: flex;
     flex-direction: column;
-}
-
-/* NAV */
-nav.main-nav {
-    background-color: var(--color-nav);
-    padding: 1rem 2rem;
-    display: flex;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: var(--nav-color);
 }
 
-nav.main-nav ul {
-    list-style: none;
+.main-nav > ul {
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
+    justify-content: center;
 }
 
-nav.main-nav a {
-    color: var(--color-texto);
+.main-nav > ul > li {
+    list-style-type: none;
+    margin: 0 28px;
+}
+
+.main-nav > ul > li > a {
     text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s;
-    border-radius: 5px;
+    color: var(--color-header-h1);
+    font-size: 1.15rem;
+    pad: 10px 0;
 }
 
-nav.main-nav a:hover {
-    background-color: var(--color-acento);
-    color: #fff;
+.main-nav > ul > li:hover {
+    background-color: var(--fecha-color);
+    border-radius: 10px;
+
 }
 
-/* HEADER */
 header {
-    background-color: var(--color-header);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    position: relative; /* necesario para fecha/hora */
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #2a2a2a;
+    text-align: center;
+    padding: 30px;
+    height: 100px;
+    box-sizing: border-box;
+    background-color: var(--color-header);
+    box-shadow: 0 1px var(--color-sombra-header);
 }
 
-header h1 {
-    font-size: 1.8rem;
-    font-weight: 600;
+header > h1 {
+    color: var(--color-header-h1)
 }
 
-/* Contenedor fecha y hora */
 .fecha-hora {
     position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: right;
-    color: #b0b0b0;
+    right: 40px;
 }
 
 .fecha {
+    color: var(--fecha-color);
     font-weight: bold;
-    font-size: 1.2rem;
-    opacity: 0.8;
+    font-size: 21px;
+    margin-bottom: 3px;
+}
+
+.fecha:hover {
+    color: var(--fecha-color-hover);
 }
 
 .hora {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-acento);
-    letter-spacing: 2px;
+    color: var(--hora-color);
+    text-align: right;
+    font-size: 18px;
 }
 
-/* MAIN */
+body{
+    min-height: 100vh;
+    background-color: var(--body-color);
+}
+
 main {
-    flex: 1;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem; /* espacio entre secciones */
+    gap: 50px;
+    min-height: calc(100vh - 180px);
+    padding-bottom: 30px;
 }
 
-/* BOTÓN VOLVER */
-.btn-volver {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background-color: var(--color-acento);
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.2s;
-    margin-bottom: 2rem;
+.flash-wrapper {
+    width: 100%;
 }
 
-/* Flecha más grande */
-.btn-volver::before {
-    content: "←";
-    font-size: 1.8rem;
-    line-height: 1;
-    font-weight: bold;
-}
-
-/* Hover botón volver */
-.btn-volver:hover {
-    background-color: #3390ff;
-    transform: translateY(-2px);
-}
-
-/* Flash Messages */
 .flash-message {
     width: 80%;
-    background-color: var(--color-flash);
-    padding: 1rem;
-    border-radius: 8px;
+    margin: auto;
+    color: #dff;
     text-align: center;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    padding: 14px 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
-/* SECCIONES Y FORMULARIOS */
-section.form-container, .horarios-actuales {
-    background-color: var(--color-card-bg);
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
+.flash-error {
+    background-color: var(--flash-color-error);
+}
+
+.flash-success {
+    background-color: var(--flash-color-success);
+}
+
+.btn-volver {
+    background-color: var(--hora-color);
+    color: var(--color-header-h1);
+    font-size: 1.3rem;
+    text-decoration: none;
+    padding: 13px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: transform,ease,0s,0.2s;
+}
+
+.btn-volver:hover 
+{
+    transform: translateY(-2px) scale(1.02);
+}
+
+.btn-volver::before {
+    content: "←";
+    font-size: 1.7rem;
+    line-height: 1;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+.horarios-actuales {
+    width: 40%;
+    min-width: 400px;
     max-width: 700px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+    padding: 30px 22px;
+    border-radius: 10px;
+    background-color: var(--color-header);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    transition: transform,ease,0s,0.2s;
+    box-shadow: 5px 10px 15px 0px rgba(0,0,0,0.2);
 }
 
-/* Encabezados de sección */
-section h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    color: var(--color-acento);
+.horarios-actuales:hover {
+    transform: translateY(-4px) scale(1.04);
+}
+
+
+
+.horarios-actuales > h2 {
     text-align: center;
+    color: var(--hora-color);
+    font-size: 2rem;
+    font-weight: bold;
+    transition: font-size,ease,0s,0.2s;
 }
 
-/* Contenedor de horarios existentes */
+.horarios-actuales > h2:hover {
+    font-size: 2.2rem;
+}
 .dias-horarios {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 12px;
 }
 
 .dia-horario {
-    background-color: var(--color-card-acento);
-    padding: 0.6rem 1rem;
+    background-color: rgb(95, 96, 96);
+    padding: 12px;
     border-radius: 8px;
-    font-size: 1rem;
+    transition: transform,ease,0s,0.2s;
 }
 
-/* Inputs de formulario */
+.dia-horario:hover {
+    transform: scale(1.01) translateY(-2px);
+}
+
+.dia-horario > strong {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.dia-horario {
+    color: rgb(215, 215, 215);
+}
+
+
+.form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.formulario-horarios {
+    width: 40%;
+    min-width: 400px;
+    max-width: 700px;
+    padding: 30px 22px;
+    border-radius: 10px;
+    background-color: var(--color-header);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: transform,ease,0s,0.2s;
+    box-shadow: 5px 10px 15px 0px rgba(0,0,0,0.2);
+}
+
+.formulario-horarios:hover {
+    transform: translateY(-4px) scale(1.04);
+}
+
+.formulario-horarios > h2 {
+    text-align: center;
+    color: var(--hora-color);
+    font-size: 2rem;
+    font-weight: bold;
+    transition: font-size,ease,0s,0.2s;
+}
+
+.formulario-horarios > h2:hover {
+    font-size: 2.2rem;
+}
+
+.dias-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    gap: 3px;
 }
 
-.input-group label {
-    margin-bottom: 0.3rem;
-    font-weight: 600;
-}
-
-.input-group input {
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    background-color: #2a2a2a;
-    color: #fff;
-}
-
-/* Botón guardar */
-.btn-guardar {
-    margin-top: 1rem;
-    padding: 0.8rem 1.5rem;
+.input-group > label {
     font-size: 1.1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--color-acento);
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    color: var(--color-header-h1);
+    transition: font-size,ease,0s,0.2s;
+}
+
+.input-group > label:hover {
+    font-size: 1.3rem;
+}
+
+.input-group > input {
+    padding: 12px;
+    background-color:rgb(95, 96, 96);
+    border-radius: 8px;
+    transition: transform,ease,0s,0.2s;
+    color: var(--color-header-h1);
+    font-size: 1.1rem;
+}
+
+.input-group > input:hover {
+    transform: scale(1.01) translateY(-2px);
+}
+
+.input-group > input::placeholder {
+    color: var(--color-header-h1);
+    font-size: 0.95rem;
+}
+
+.btn-guardar {
+    padding: 17px 0;
+    color: var(--color-header-h1);
+    background-color: var(--hora-color);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: transform,ease,0s,0.2s;
 }
 
 .btn-guardar:hover {
-    background-color: #3390ff;
-    transform: translateY(-2px);
+    transform: scale(1.01) translateY(-2px);
 }
 
-/* Responsive */
-@media (max-width: 700px) {
-    section.form-container, .horarios-actuales {
-        width: 95%;
-        padding: 1.5rem;
+
+@media (max-width: 1180px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fecha-hora {
+       display: none;
     }
 }

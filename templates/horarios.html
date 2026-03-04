@@ -28,38 +28,37 @@
     </header>
 
     <main>
-        <!-- BOTÓN VOLVER -->
-        <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
-
         <!-- Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories = false) %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
             {% if messages %}
-                {% for message in messages %}
-                    <div class="flash-wrapper">
-                        <div class="flash-message">
+                {% for category,message in messages %}
+                    <div class="flash-wrapper ">
+                        <div class="flash-message flash-{{ category }}">
                             <p>{{ message }}</p>
                         </div>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <!-- BOTÓN VOLVER -->
+        <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
 
         <!-- SECCION DE HORARIOS EXISTENTES -->
         
             <section class="horarios-actuales">
-            <h2>Horarios Cargados</h2>
-            <div class="dias-horarios">
-                {% for dia,hora in horarios.items() %}
-                <div class="dia-horario">
-                    <strong>{{ dia }}:</strong> {{ hora }}
+                <h2>Horarios Cargados</h2>
+                <div class="dias-horarios">
+                    {% for dia,hora in horarios.items() %}
+                    <div class="dia-horario">
+                        <strong>{{ dia }}:</strong> {{ hora }}
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-        </section>
+            </section>
 
         <!-- FORMULARIO DE HORARIOS -->
         <section class="form-container">
-            <form action="/guardar-horarios" method="POST">
+            <form action="/guardar-horarios" method="POST" class="formulario-horarios">
                 <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                 <h2>Cargar Horarios de {{ materia.nombre }}</h2>
 

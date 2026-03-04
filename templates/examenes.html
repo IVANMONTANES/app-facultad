@@ -53,7 +53,7 @@
                                 <p><span>Fecha:</span> {{ examen.fecha }}</p>
                                 <p><span>Hora:</span> {{ examen.hora }}</p>
                                 <form action="/realizar-examen" method="post">
-                                    <div>
+                                    <div class="div-pendiente">
                                         <input type="number" name="nota" id="nota" min="0" max="10" required placeholder="INGRESE LA NOTA DEL EXAMEN">
                                         <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                                         <input type="hidden" name="id_examen" value="{{ examen.id_examen }}">
@@ -87,12 +87,12 @@
                                         nota-verde
                                     {% endif %}
                                 "><span>Nota:</span> {{ examen.nota }}</p>
-                                <form action="/marcar-examen-pendiente" method="post">
+                                <form action="/marcar-examen-pendiente" method="post" class="formulario-volver">
                                     <div>
                                         <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                                         <input type="hidden" name="id_examen" value="{{ examen.id_examen }}">
                                         <input type="hidden" name="estado_actual" value="1">
-                                        <input type="submit" value="VOLVER">
+                                        <input type="submit" value="VOLVER" class="volver">
                                     </div>
                                 </form>
                             </div>

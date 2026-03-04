@@ -33,7 +33,7 @@ class Horario:
         from funciones.db import horariosDb
 
 
-        horarios_materia = horariosDb.obtener_horario_por_id_materia(id_materia)
+        horarios_materia = horariosDb.obtener_horario_materia(id_materia)
 
         # verificamos si ya hay horarios cargados para este materia #
         if horarios_materia:
