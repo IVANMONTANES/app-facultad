@@ -27,6 +27,7 @@
 
 <main>
     <!-- BOTÓN VOLVER -->
+<<<<<<< HEAD
         <a href="/volver-panel" class="btn-volver">Volver</a>
 
     {% with messages = get_flashed_messages(with_categories = true) %}
@@ -41,33 +42,35 @@
         {% endif %}
     {% endwith %}
 
+=======
+    <a href="/volver-panel" class="btn-volver">Volver</a>
+>>>>>>> rama_css
     
     <!-- CONTENEDOR DE MATERIAS -->
     <section class="materias-container">
         {% if materias %}
             {% for materia in materias %}
             <div class="materia-card">
-                <a href="/materia/{{ materia.id_materia }}" class="materia-link">
-                    <!-- Nombre de la materia -->
-                    <h3 class="materia-nombre">{{ materia.nombre }}</h3>
+                <!-- Nombre de la materia -->
+                <h3 class="materia-nombre">{{ materia.nombre }}</h3>
 
-                    <!-- Descripción -->
-                    <div class="materia-info">
-                        <strong>Descripción:</strong>
-                        <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
-                    </div>
+                <!-- Descripción -->
+                <div class="materia-info">
+                    <strong>Descripción:</strong>
+                    <p>{{ materia.descripcion if materia.descripcion else "Sin descripción" }}</p>
+                </div>
 
-                    <!-- Carga semanal -->
-                    <div class="materia-info">
-                        <strong>Carga semanal:</strong>
-                        <p>{{ materia.carga }} hs</p>
-                    </div>
-
-                    <div class="materia-opciones">
-                        <a href="/eliminar-materia/{{ materia.id_materia }}" class=" eliminar">🗑 Eliminar</a>
-                        <a href="/modificar-materia-pagina/{{ materia.id_materia }}" class="modificar">✏ Modificar</a>
-                    </div>
-                </a>
+                <!-- Carga semanal -->
+                <div class="materia-info">
+                    <strong>Carga semanal:</strong>
+                    <p>{{ materia.carga }} hs</p>
+                </div>
+                
+                <div class="materia-opciones">
+                    <a href="/materia/{{ materia.id_materia }}" class="ver">👀 Ver</a>
+                    <a href="/eliminar-materia/{{ materia.id_materia }}" class=" eliminar">🗑 Eliminar</a>
+                    <a href="/modificar-materia-pagina/{{ materia.id_materia }}" class="modificar">✏ Modificar</a>
+                </div>
             </div>
             {% endfor %}
         {% else %}

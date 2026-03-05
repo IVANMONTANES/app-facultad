@@ -26,8 +26,7 @@
     </header>
     
     <main>
-        
-            {% with messages = get_flashed_messages(with_categories = false) %}
+        {% with messages = get_flashed_messages(with_categories = false) %}
                 {% if messages %}
                     {% for message in messages %}
                     <div class="flash-message">
@@ -36,9 +35,7 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-        
         <section class="cards-container">
-            
             <div class="card">
                 <h3>Cargar Materia</h3>
                 <p>Agregar una nueva materia al sistema</p>

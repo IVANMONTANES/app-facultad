@@ -489,7 +489,7 @@ def crear_materia() -> Response:
     materiasDb.insertar_materia(nombre,descripcion,carga)
 
     # volvemos a la pagina de crear la materia
-    flash(f"se creo la materia {nombre}")
+    flash(f"se creo la materia {nombre}","success")
     return redirect("/cargar-materia")
 
 
@@ -605,7 +605,7 @@ def save_horarios() -> Response:
     
     Horario.actualizar_horarios(id_materia,diccionario_horarios)
 
-    flash("horarios modificados con exito")
+    flash("horarios modificados con exito","success")
     return redirect(f"/horarios/{id_materia}")
 
 # ----------- FIN HORARIOS ------------ #

@@ -28,9 +28,6 @@
     </header>
 
     <main>
-        <!-- BOTÓN VOLVER -->
-        <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
-
         <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories = false) %}
             {% if messages %}
@@ -43,6 +40,10 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+
+        <!-- BOTÓN VOLVER -->
+        <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
+
 
     <section class="estudios-section">
         <div class="estudios-col">

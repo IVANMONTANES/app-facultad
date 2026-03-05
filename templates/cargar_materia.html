@@ -27,24 +27,23 @@
     </header>
 
     <main>
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category,message in messages %}
+                    <div class="flash-wrapper">
+                        <div class="flash-message flash-{{ category}}">
+                            <p>{{ message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <!-- BOTÓN VOLVER -->
         <a href="/volver-panel" class="btn-volver">Volver</a>
         
-        {% with messages = get_flashed_messages(with_categories = false) %}
-                        {% if messages %}
-                            {% for message in messages %}
-                            <div class="flash-wrapper">
-                                <div class="flash-message">
-                                    <p>{{ message }}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% endif %}
-                {% endwith %}
+        
+
         <section class="form-container">
-
-            
-
             <form action="/crear-materia" method="POST" enctype="multipart/form-data">
                 <h2>Cargar Nueva Materia</h2>
 

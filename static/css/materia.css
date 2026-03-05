@@ -1,214 +1,213 @@
-﻿/* materia.css */
-
-/* ===== PALETA Y TIPOGRAFÍA ===== */
-:root {
-    --color-fondo: #121212;
-    --color-header: #1f1f1f;
-    --color-nav: #1a1a1a;
-    --color-texto: #e0e0e0;
-    --color-acento: #4cafef;
-    --color-flash: #ff4c4c;
-    --color-card-bg: #1e1e1e;
-    --color-card-hover: #252525;
-}
-
-/* ===== RESET ===== */
-* {
+﻿* {
     margin: 0;
+    border: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
 }
 
-body {
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-    min-height: 100vh;
+:root {
+    font-family: sans-serif;
+    font-size: 16px;
+    /* VARIABLES CSS */
+    --color-header: #242424;
+    --color-header-h1: #fffafa;
+    --color-sombra-header: #000;
+    --fecha-color: #989797;
+    --fecha-color-hover: #aeaeae;
+    --hora-color: #3677e8;
+    --nav-color : #181818;
+    --body-color: #181818;
+    --flash-color-error: #d24;
+    --flash-color-success: #4CAF50;
+    --color-ver: #28a745;
+    --color-eliminar: #dc3545;
+    --color-modificar: #6f42c1;
+}
+
+.main-nav {
+    height: 80px;
     display: flex;
     flex-direction: column;
-}
-
-/* ===== NAV ===== */
-nav.main-nav {
-    background-color: var(--color-nav);
-    padding: 1rem 2rem;
-    display: flex;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: var(--nav-color);
 }
 
-nav.main-nav ul {
-    list-style: none;
+.main-nav > ul {
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
+    justify-content: center;
 }
 
-nav.main-nav a {
-    color: var(--color-texto);
+.main-nav > ul > li {
+    list-style-type: none;
+    margin: 0 28px;
+}
+
+.main-nav > ul > li > a {
     text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s;
-    border-radius: 5px;
+    color: var(--color-header-h1);
+    font-size: 1.15rem;
+    pad: 10px 0;
 }
 
-nav.main-nav a:hover {
-    background-color: var(--color-acento);
-    color: #fff;
+.main-nav > ul > li:hover {
+    background-color: var(--fecha-color);
+    border-radius: 10px;
+
 }
 
-/* ===== HEADER ===== */
 header {
-    background-color: var(--color-header);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    position: relative;
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #2a2a2a;
+    text-align: center;
+    padding: 30px;
+    height: 100px;
+    box-sizing: border-box;
+    background-color: var(--color-header);
+    box-shadow: 0 1px var(--color-sombra-header);
 }
 
-header h1 {
-    font-size: 1.8rem;
-    font-weight: 600;
+header > h1 {
+    color: var(--color-header-h1)
 }
 
 .fecha-hora {
     position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: right;
-    color: #b0b0b0;
+    right: 40px;
 }
 
 .fecha {
+    color: var(--fecha-color);
     font-weight: bold;
-    font-size: 1.2rem;
-    opacity: 0.8;
+    font-size: 21px;
+    margin-bottom: 3px;
+}
+
+.fecha:hover {
+    color: var(--fecha-color-hover);
 }
 
 .hora {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-acento);
-    letter-spacing: 2px;
+    color: var(--hora-color);
+    text-align: right;
+    font-size: 18px;
 }
 
-/* ===== MAIN ===== */
+body{
+    min-height: 100vh;
+    background-color: var(--body-color);
+}
+
 main {
-    flex: 1;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 50px;
+    min-height: calc(100vh - 180px);
+    padding-bottom: 30px;
 }
 
-/* ===== BOTÓN VOLVER ===== */
-.btn-volver {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.6rem;
-    background-color: var(--color-acento);
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem;
+.flash-wrapper {
+    width: 100%;
+}
+
+.flash-message {
+    width: 80%;
+    margin: auto;
+    color: #dff;
+    text-align: center;
+    padding: 14px 0;
+    font-size: 1.3rem;
+    font-weight: bold;
     border-radius: 10px;
+    margin-top: 10px;
+}
+
+.flash-error {
+    background-color: var(--flash-color-error);
+}
+
+.flash-success {
+    background-color: var(--flash-color-success);
+}
+
+.btn-volver {
+    background-color: var(--hora-color);
+    color: var(--color-header-h1);
+    font-size: 1.3rem;
     text-decoration: none;
-    transition: background-color 0.3s, transform 0.2s;
+    padding: 13px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: transform,ease,0s,0.2s;
+}
+
+.btn-volver:hover 
+{
+    transform: translateY(-2px) scale(1.02);
 }
 
 .btn-volver::before {
     content: "←";
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     line-height: 1;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+.materia-titulo {
+    font-size: 1.7rem;
+    color: var(--hora-color);
     font-weight: bold;
 }
 
-.btn-volver:hover {
-    background-color: #3390ff;
-    transform: translateY(-2px);
-}
-
-/* ===== TÍTULO MATERIA ===== */
-.materia-titulo {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-acento);
-    text-align: center;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.materia-titulo::after {
-    content: "";
-    display: block;
-    width: 50%;
-    height: 4px;
-    background-color: currentColor;
-    margin: 0.5rem auto 0 auto;
-    border-radius: 2px;
-}
-
-/* ===== CARDS ===== */
 .cards-container {
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap; /* se apilan solo en pantallas muy pequeñas */
-    max-width: 1300px; /* limita la fila para que no se estire demasiado */
+    flex-wrap: wrap;
+    gap: 25px;
 }
 
-/* Cards individuales */
 .card {
-    background-color: var(--color-card-bg);
-    border-radius: 12px;
-    padding: 6rem 3rem;
-    width: 350px; /* un poco menos ancho para 3 en fila */
-    text-align: center;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--color-texto);
+    color: var(--color-header-h1);
+    background-color: var(--color-header);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    height: 135px;
     text-decoration: none;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    box-shadow: 5px 10px 15px 0px rgba(0,0,0,0.2);
+    transition: transform,ease,0s,0.2s;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0,0,0,0.7);
+    transform: translateY(-2px) scale(1.02);
 }
 
-/* Responsive: 1 card por fila en pantallas pequeñas */
-@media (max-width: 1000px) {
-    .cards-container {
-        flex-wrap: wrap;
+@media (max-width: 1180px) {
+    header {
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
-    .card {
-        width: 300px;
-        margin-bottom: 1rem;
+
+    .fecha-hora {
+       display: none;
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
+    .cards-container {
+        width: 100%;
+    }
     .card {
         width: 90%;
     }
-}
-/* Más espacio debajo de las cards */
-main {
-    padding-bottom: 4rem; /* antes era 2rem, ahora hay más espacio inferior */
-}
-
-/* Reducir tamaño de las cards */
-.cards-container .card {
-    padding: 4rem 2rem; /* menos alto que antes */
-    width: 300px;       /* un poco más estrechas */
 }
