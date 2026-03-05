@@ -184,10 +184,17 @@ main {
     font-size: 1.8rem;
 }
 
+.examen-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .examen-lista > p {
     text-align: center;
     color: var(--fecha-color);
     font-size: 1.2rem;
+
 }
 
 .examen {

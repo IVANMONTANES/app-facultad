@@ -749,4 +749,5 @@ def marcar_examen_pendiente() -> Response:
 
 if __name__ == "__main__":
     dbBase.crear_tablas()
+    Email.notificar_examenes_proximos()
     app.run(debug=False) 

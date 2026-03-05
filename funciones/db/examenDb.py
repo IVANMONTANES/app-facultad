@@ -63,10 +63,22 @@ def obtener_examenes_no_notificados() -> list[Examen]:
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
         cursor.execute("""
-            SELECT id_examen, nombre, fecha, hora, nota 
+            SELECT id_examen,id_materia, nombre, fecha, hora, nota 
             FROM examenes 
-            WHERE notificado_en IS NULL 
+            WHERE notificado_en IS NULL
+            AND date(fecha) IN ( date('now'),date('now','+1 day') )
+            ORDER BY fecha ASC, hora ASC
         """)
         filas = cursor.fetchall()
-        examenes_no_notificados = [Examen(fila["id_examen"],fila["nombre"],fila["fecha"],fila["hora"],fila["nota"]) for fila in filas]
+        examenes_no_notificados = [Examen(fila["id_examen"],fila["id_materia"],fila["nombre"],fila["fecha"],fila["hora"],fila["nota"]) for fila in filas]
         return examenes_no_notificados
+    
+def marcar_examen_como_notificado(id_examen:int) -> None:
+    from datetime import datetime
+    with sqlite3.connect(rutaDb) as con:
+        cursor = con.cursor()
+        cursor.execute("""
+            update examenes
+            SET notificado_en = ?
+            WHERE id_examen = ?
+        """,(datetime.now().isoformat(),id_examen))

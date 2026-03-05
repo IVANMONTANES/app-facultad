@@ -92,8 +92,9 @@ class Estudio:
 
 # ------------------ CLASE EXAMEN ---------------------- #
 class Examen:
-    def __init__(self,id_examen:int ,nombre:str, fecha: str, hora: str, nota: int):
+    def __init__(self,id_examen:int ,id_materia: int,nombre:str, fecha: str, hora: str, nota: int):
         self.id_examen = id_examen
+        self.id_materia = id_materia
         self.nombre = nombre
         self.fecha = fecha
         self.hora = hora
@@ -106,6 +107,18 @@ class Examen:
 # ------------------ FUNCIONES FECHA ----------------------- #
 # vamos a usar una clase con metodos estaticos en vez de funciones sueltas #
 class Fecha:
+    @staticmethod
+    def formatear_fecha(fecha: str, formato: str) -> str:
+        from datetime import datetime
+        import locale
+
+        locale.setlocale(locale.LC_TIME,"es_AR.UTF-8")
+
+        fecha_date = datetime.strptime(fecha,formato)
+        fecha_formateada = datetime.strftime(fecha_date,"%A, %d de %B de %Y")
+
+        return fecha_formateada
+
     @staticmethod
     def obtener_ultima_semana() -> list[date]:
         # obtenemos la fecha actual #
@@ -135,12 +148,53 @@ class Email:
     @staticmethod
     
     def notificar_examenes_proximos() -> None:
-        from funciones.db import examenDb
+        from funciones.db import examenDb,materiasDb
+        import smtplib
+        from datetime import datetime
+        import locale
+        from email.message import EmailMessage
+
+
+        locale.setlocale(locale.LC_TIME,"es_AR.UTF-8")
+
+
         examenes_a_notificar = examenDb.obtener_examenes_no_notificados()
-        for examen in examenes_a_notificar:
-            print[examen.nombre]
+        
+        # verificamos que haya examanes que deban ser notificados #
+        if examenes_a_notificar:
+        
+            mensaje = "-------------------- EXAMENES PROXIMOS --------------------\n"
+            for examen in examenes_a_notificar:
+                # formato en que viene la fecha #
+                formato = "%Y-%m-%d"
+                fecha_formateada = Fecha.formatear_fecha(examen.fecha,formato)
+                mensaje += "------------------------------\n"
+                mensaje += f"MATERIA: {materiasDb.obtener_materia(examen.id_materia).nombre}\n"
+                mensaje += f"{examen.nombre.upper()} - {fecha_formateada.upper()} A LAS {examen.hora}\n"
 
+            # creamos el mail #
+            msg = EmailMessage()
+            msg["Subject"] = "PROXIMOS PARCIALES"
+            msg["From"] = "pruebasfilipit@gmail.com"
+            msg["To"] = "ivanmontanesfilipit@gmail.com"
+            msg.set_content(mensaje)
 
+            # enviamos el mail #
+            try:
+                with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
+                    smtp.login("pruebasfilipit@gmail.com","c j l n l a o c e o x q m h s a")
+                    smtp.send_message(msg)
+            
+                # marcamos los examenes como notificados #
+                for examen in examenes_a_notificar:
+                    examenDb.marcar_examen_como_notificado(examen.id_examen)
+
+            except Exception as e:
+                print("ocurrio un error al enviar el mail")
+
+        print("no hay examenes que deban ser notificados")
+        
+            
 
 
 
