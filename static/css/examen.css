@@ -238,7 +238,8 @@ main {
     border-radius: 8px;
     background-color: var(--body-color);
     padding: 8px 4px;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
+    color: var(--color-header-h1);
 }
 
 .div-pendiente > input[type="submit"] {

@@ -4,17 +4,22 @@ from flask import Flask, render_template, request, flash, redirect, session,Resp
 # dependencias para manejar las rutas ""
 import os
 
-# dependencias de la base de datos #
-from funciones.db import materiasDb,horariosDb,examenDb,estudioDb,dbBase
+# imports de la base de datos #
+from modulos.db import materiasDb,horariosDb,examenDb,estudioDb,dbBase
 
 # dependencias de las clases #
-from funciones.clases.clases import Materia,Estudio,Examen,Fecha,Horario,Email
+from modulos.clases.materias import Materia
+from modulos.clases.horarios import Horario
+from modulos.clases.estudios import Estudio
+from modulos.clases.examenes import Examen
+from modulos.clases.fechas import Fecha
+from modulos.clases.emails import Email
 
 # dependencias para manejar las fechas #
 from datetime import datetime
 
 # dependencias de variables globales #
-from funciones import globales
+from modulos import globales
 
 
 
