@@ -278,3 +278,33 @@ main {
         font-size: 1rem;
     }
 }
+
+.flash-wrapper {
+    width: 80%;
+    margin: 1rem auto; /* centra horizontalmente */
+}
+
+.flash-message {
+    color: #fff; /* texto blanco */
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    animation: flashFade 0.5s ease-in-out;
+}
+
+/* colores según tipo */
+.flash-verde {
+    background-color: #4caf50; /* verde */
+}
+
+.flash-rojo {
+    background-color: #f44336; /* rojo */
+}
+
+/* opcional: efecto de aparición */
+@keyframes flashFade {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

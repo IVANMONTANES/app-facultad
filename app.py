@@ -8,7 +8,7 @@ import os
 from funciones.db import materiasDb,horariosDb,examenDb,estudioDb,dbBase
 
 # dependencias de las clases #
-from funciones.clases.clases import Materia,Estudio,Examen,Fecha,Horario
+from funciones.clases.clases import Materia,Estudio,Examen,Fecha,Horario,Email
 
 # dependencias para manejar las fechas #
 from datetime import datetime
@@ -161,6 +161,7 @@ def get_ver_materias_page() -> Response:
 
     """
 
+    
     if "logueado" in session:
         # obtenemos la lista con las materias #
         listaMaterias = materiasDb.obtener_materias()
@@ -493,7 +494,7 @@ def crear_materia() -> Response:
 
 
 @app.route("/eliminar-materia/<int:id_materia>")
-def eliminar_materia(id_materia: int):
+def eliminar_materia(id_materia: int) -> Response:
     """
     gestiona la eliminacion de una materia de la base de datos
 
@@ -518,13 +519,42 @@ def eliminar_materia(id_materia: int):
 
         # verificamos que se haya traido una materia #
         if materia is None:
-            flash("no existe la materia ingresada")
+            flash("no existe la materia ingresada","rojo")
             return redirect("/panel")
 
 
         materiasDb.eliminar_materia(id_materia)
+        flash("materia eliminado con exito","rojo")
         return redirect("/ver-materias")
     
+    flash("no esta logueado","rojo")
+    return redirect("/login")
+
+@app.route("/actualizar-materia/<int:id_materia>", methods = ["POST"])
+def actualizar_materia(id_materia: int) -> Response:
+    if "logueado" in session:
+
+        # obtenemos la materia #
+        materia = materiasDb.obtener_materia(id_materia)
+
+        # verificamos que se haya traido una materia #
+        if materia is None:
+            flash("no existe la materia ingresada")
+            return redirect("/panel")
+        
+        # obtenemos los datos cargados por el usuario #
+        nombre = request.form["nombre"]
+        descripcion = request.form["descripcion"]
+        carga = int(request.form["carga"])
+
+        datos = (nombre,descripcion,carga)
+
+        materiasDb.actualizar_materia(id_materia,datos)
+
+        flash("materia actualizada correctamente","verde")
+        return redirect("/ver-materias")
+    
+
     flash("no esta logueado")
     return redirect("/login")
 

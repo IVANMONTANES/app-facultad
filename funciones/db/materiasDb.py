@@ -63,7 +63,21 @@ def eliminar_materia(id_materia: int) -> None:
         cursor = con.cursor()
         cursor.execute("""
             DELETE FROM materias WHERE id_materia = ?""",(id_materia,))
-        
+    
+
+def actualizar_materia(id_materia: int , datos: tuple) -> None:
+    nombre,descripcion,carga = datos
+    
+    with sqlite3.connect(rutaDb) as con:
+        cursor = con.cursor()
+        cursor.execute("""
+                UPDATE materias 
+                       set nombre = ?, 
+                       descripcion = ?, 
+                       carga_semanal = ?
+                       WHERE id_materia = ?
+        """,(nombre,descripcion,carga,id_materia))
+
 
 
 

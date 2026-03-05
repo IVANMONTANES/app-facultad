@@ -131,7 +131,14 @@ class Fecha:
         return ultima_semana_formateada
 
 
-
+class Email:
+    @staticmethod
+    
+    def notificar_examenes_proximos() -> None:
+        from funciones.db import examenDb
+        examenes_a_notificar = examenDb.obtener_examenes_no_notificados()
+        for examen in examenes_a_notificar:
+            print[examen.nombre]
 
 
 

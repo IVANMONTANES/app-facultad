@@ -50,15 +50,15 @@
             <form action="/actualizar-materia/{{ materia.id_materia }}" method="POST" class="form-modificar">
                 <div class="input-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" value="{{ materia.nombre }}" class="nombre-input">
+                    <input type="text" name="nombre" id="nombre" value="{{ materia.nombre }}" class="nombre-input" required>
                 </div>
                 <div class="input-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" rows="3" class="descripcion-textArea">{{ materia.descripcion }}</textarea>
+                    <textarea name="descripcion" id="descripcion" rows="3" class="descripcion-textArea" required>{{ materia.descripcion }}</textarea>
                 </div>
                 <div class="input-group">
                     <label for="carga">Carga Horaria</label>
-                    <input type="number" name="carga" id="carga" value="{{ materia.carga }}" class="carga-input">
+                    <input type="number" name="carga" id="carga" value="{{ materia.carga }}" class="carga-input" required>
                 </div>
                 <button type="submit" class="btn-guardar">Modificar Materia</button>
             </form>

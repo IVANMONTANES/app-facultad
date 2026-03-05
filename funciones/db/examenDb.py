@@ -15,6 +15,7 @@ def crear_tabla_examenes() -> None:
                 hora TEXT NOT NULL,
                 nota INTEGER,
                 realizado INTEGER NOT NULL DEFAULT 0,
+                notificado_en DATETIME DEFAULT NULL,
                 FOREIGN KEY (id_materia) REFERENCES materias(id_materia)              
             )""")
         
@@ -47,3 +48,25 @@ def actualizar_estado_examen(id_examen: int,nota: int,estado_actual:int):
         cursor.execute("""
             UPDATE examenes set nota = ?, realizado = ? WHERE id_examen = ?""",(nota,nuevo_estado,id_examen))
         con.commit()
+
+def obtener_examenes_no_notificados() -> list[Examen]:
+    """
+    Obtiene exámenes pendientes no notificados que ocurren mañana
+    
+    Retorna:
+        list[Examen]: Lista de exámenes (vacía si no hay ninguno)
+
+
+
+    """
+    with sqlite3.connect(rutaDb) as con:
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        cursor.execute("""
+            SELECT id_examen, nombre, fecha, hora, nota 
+            FROM examenes 
+            WHERE notificado_en IS NULL 
+        """)
+        filas = cursor.fetchall()
+        examenes_no_notificados = [Examen(fila["id_examen"],fila["nombre"],fila["fecha"],fila["hora"],fila["nota"]) for fila in filas]
+        return examenes_no_notificados
