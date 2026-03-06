@@ -1,6 +1,13 @@
 ﻿from datetime import date,datetime,timedelta
 import locale
-locale.setlocale(locale.LC_TIME,"es_AR.UTF-8")
+
+try:
+    locale.setlocale(locale.LC_TIME,"es_AR.UTF-8")
+except locale.Error:
+    try:
+        locale.setlocale(locale.LC_TIME,"es_ES.UTF-8")
+    except locale.Error:
+        pass
 
 class Fecha:
     @staticmethod
