@@ -1,5 +1,7 @@
 ﻿# dependencias de flask #
 from flask import Flask, render_template, request, flash, redirect, session,Response
+from werkzeug.security import generate_password_hash,check_password_hash
+from dotenv import load_dotenv
 
 # dependencias para manejar las rutas ""
 import os
@@ -14,6 +16,7 @@ from modulos.clases.estudios import Estudio
 from modulos.clases.examenes import Examen
 from modulos.clases.fechas import Fecha
 from modulos.clases.emails import Email
+from modulos.clases.env import load_dotenv_clean
 
 # dependencias para manejar las fechas #
 from datetime import datetime
@@ -23,8 +26,17 @@ from modulos import globales
 
 
 
+# funcion que se encarga de eliminar el BOM del archivo .env en caso de tenerlo #
+load_dotenv_clean()
+
+# cargamos las variables declaradas en el archivo .env como variables de entorno #
+load_dotenv()
+
+
+
+
 app = Flask(__name__)
-app.secret_key = "clave_super_secreta"
+app.secret_key = os.getenv("SECRET_KEY")
 
 @app.after_request
 def add_header(response):
@@ -84,7 +96,7 @@ def get_login_page() -> Response:
     """
 
     if "logueado" in session:
-        flash("ya esta logueado")
+        flash("ya esta logueado","success")
         return redirect("/panel")
     
     return render_template("login.html")
@@ -455,8 +467,11 @@ def login() -> Response:
     # recuperamos la contraseña del formulario #
     password = request.form["password"]
 
+
+
     # verificamos que la contraseña sea la correcta #
-    if password == os.getenv("APP_FACULTAD_PASSWORD"):
+
+    if check_password_hash(os.getenv("APP_FACULTAD_PASSWORD"),password):
         session["logueado"] = True
         return redirect("/panel")
     
@@ -464,8 +479,6 @@ def login() -> Response:
     return redirect("/login")
 
 # ------------ FIN LOGIN ----------- #
-
-
 
 
 # ---------- MATERIAS ------------ #
