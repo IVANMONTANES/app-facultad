@@ -5,7 +5,14 @@ from datetime import datetime
 import locale
 from email.message import EmailMessage
 
-locale.setlocale(locale.LC_TIME,"es_AR.UTF-8")
+try:
+    locale.setlocale(locale.LC_TIME,"es_AR.UTF-8")
+except locale.Error:
+    try:
+        locale.setlocale(locale.LC_TIME,"es_ES.UTF-8")
+    except locale.Error:
+        pass
+
 
 class Email:
     @staticmethod
