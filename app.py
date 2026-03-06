@@ -804,6 +804,7 @@ def eliminar_examen():
 
 
 if __name__ == "__main__":
+    dbBase.crear_database()
     dbBase.crear_tablas()
     Email.notificar_examenes_proximos()
     app.run(debug=False) 

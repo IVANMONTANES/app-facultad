@@ -8,3 +8,5 @@ horarios_no_cargados = {
     "Sabado": "No se cargo ningun horario",
     "Domingo": "No se cargo ningun horario",
 }
+
+rutadb = "database/base.db"

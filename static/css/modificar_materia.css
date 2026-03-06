@@ -14,14 +14,6 @@ main {
     padding-bottom: 30px;
 }
 
-.flash-error {
-    background-color: var(--flash-color-error);
-}
-
-.flash-success {
-    background-color: var(--flash-color-success);
-}
-
 .form-container {
     width: 100%;
     display: flex;
