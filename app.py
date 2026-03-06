@@ -47,6 +47,10 @@ def add_header(response):
 
 # ------------------------ FUNCIONES DE DIRECCIONAMIENTO ------------------------------ #
 
+dbBase.crear_database()
+dbBase.crear_tablas()
+Email.notificar_examenes_proximos()
+
 
 @app.route("/")
 def get_index_page() -> Response:
