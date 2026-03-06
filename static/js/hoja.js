@@ -212,3 +212,19 @@ document.addEventListener("DOMContentLoaded", () => {
         materia_carga_modificar.textContent = carga_input.value + " hs";
     })
 })
+
+// ------------------------------------------ SECCION CARGAR HOY ----------------------------------------- //
+document.addEventListener("DOMContentLoaded", () => {
+    let boton = document.querySelector(".boton-hoy");
+
+    boton.addEventListener("click",() => {
+        let fecha_examen = document.querySelector(".fecha-examen")
+        // obtenemos la fecha de hoy //
+        let fecha_hoy = new Date();
+        let dia = String(fecha_hoy.getDate()).padStart(2,"0");
+        let mes = String(fecha_hoy.getMonth() + 1).padStart(2,"0");
+        let anio = String(fecha_hoy.getFullYear());
+        let fecha = `${anio}-${mes}-${dia}`;
+        fecha_examen.value = fecha;
+    })
+})

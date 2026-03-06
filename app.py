@@ -9,7 +9,7 @@ from modulos.db import materiasDb,horariosDb,examenDb,estudioDb,dbBase
 
 # dependencias de las clases #
 from modulos.clases.materias import Materia
-from modulos.clases.horarios import Horario
+from modulos.clases.horarios import Horarios
 from modulos.clases.estudios import Estudio
 from modulos.clases.examenes import Examen
 from modulos.clases.fechas import Fecha
@@ -114,7 +114,7 @@ def get_panel_page() -> Response:
     if "logueado" in session:
         return render_template("panel.html")
     
-    flash("debe loguearse primero")
+    flash("debe loguearse primero","error")
     return redirect("/login")
     
 
@@ -141,7 +141,7 @@ def get_cargar_materia_page() -> Response:
     if "logueado" in session:
         return render_template("cargar_materia.html")
     
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
 
 
@@ -172,7 +172,7 @@ def get_ver_materias_page() -> Response:
         listaMaterias = materiasDb.obtener_materias()
         return render_template("ver_materias.html",materias = listaMaterias)
     
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
     
 
@@ -209,7 +209,7 @@ def get_materia_page(id_materia: int) -> Response:
         flash("materia no encontrada")
         return redirect("/panel")
     
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
     
 @app.route("/horarios/<int:id_materia>")
@@ -240,18 +240,18 @@ def get_horarios_page(id_materia) -> Response:
 
         # verificamos que si haya traido una materia para que no se pueda acceder a materias no creadas #
         if materia is None:
-            flash("no existe la materia ingresada")
+            flash("no existe la materia ingresada","error")
             return redirect("/panel")
 
         # traemos los horarios de la materia de la base de datos #
-        horarios_traidos = horariosDb.obtener_horario_materia(id_materia)
+        horarios = horariosDb.obtener_horarios_materia(id_materia)
 
-        # funcion que se encarga de devolver el diccionario bien cargado #
-        horarios = Horario.obtener_dias(horarios_traidos)
+        # generamos un diccionario con los dias y sus horarios correspondientes #
+        horarios_diccionario = Horarios.obtener_dias(horarios)
 
-        return render_template("horarios.html",materia = materia,horarios = horarios)
+        return render_template("horarios.html",materia = materia,horarios = horarios,horarios_diccionario = horarios_diccionario)
 
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
 
 
@@ -294,10 +294,17 @@ def get_examenes_page(id_materia: int) -> Response:
         # obtenemos los examenes realizados de la materia #
         examenes_realizados_materia = examenDb.obtener_examenes_materia(id_materia,1)
 
+        # le damos el formato adecuado a las fechas #
+        for examen in examenes_pendientes_materia:
+            examen.fecha = Fecha.formatear_fecha(examen.fecha,"%Y-%m-%d")
+
+        for examen in examenes_realizados_materia:
+            examen.fecha = Fecha.formatear_fecha(examen.fecha,"%Y-%m-%d")
+
         
         return render_template("examenes.html",materia = materia, examenes_pendientes = examenes_pendientes_materia, examenes_realizados = examenes_realizados_materia)
     
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
     
 
@@ -379,7 +386,7 @@ def get_modificar_materia_page(id_materia: int) -> Response:
         
         return render_template("modificar_materia.html",materia = materia)
     
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
 
     
@@ -408,12 +415,12 @@ def volver_a_materia(id_materia) -> None:
 
 @app.errorhandler(404)
 def page_not_found(e):
-    flash("pagina no encontrada")
+    flash("pagina no encontrada","error")
     return redirect("/")
 
 @app.errorhandler(405)
 def not_allow_page(e):
-    flash("pagina no permitida")
+    flash("pagina no permitida","error")
     return redirect("/")
 
 # ------------------------ FIN FUNCIONES ASOCIADAS A MANEJAR RUTAS PROBLEMATICAS ------------------------------  #
@@ -452,9 +459,9 @@ def login() -> Response:
     if password == os.getenv("APP_FACULTAD_PASSWORD"):
         session["logueado"] = True
         return redirect("/panel")
-    else:
-        flash("contraseña incorrecta")
-        return redirect("/login")
+    
+    flash("contraseña incorrecta","error")
+    return redirect("/login")
 
 # ------------ FIN LOGIN ----------- #
 
@@ -527,12 +534,18 @@ def eliminar_materia(id_materia: int) -> Response:
             flash("no existe la materia ingresada","rojo")
             return redirect("/panel")
 
-
+        # eliminamos la materia #
         materiasDb.eliminar_materia(id_materia)
-        flash("materia eliminado con exito","rojo")
+        # eliminamos todo lo relacionado con la materia #
+        horariosDb.eliminar_horarios_materia(id_materia)
+        estudioDb.eliminar_estudios_materia(id_materia)
+        examenDb.eliminar_examenes_materia(id_materia)
+
+
+        flash("materia eliminada con exito","error")
         return redirect("/ver-materias")
     
-    flash("no esta logueado","rojo")
+    flash("no esta logueado","error")
     return redirect("/login")
 
 @app.route("/actualizar-materia/<int:id_materia>", methods = ["POST"])
@@ -560,7 +573,7 @@ def actualizar_materia(id_materia: int) -> Response:
         return redirect("/ver-materias")
     
 
-    flash("no esta logueado")
+    flash("no esta logueado","error")
     return redirect("/login")
 
 # ------------ FIN MATERIAS --------------#
@@ -608,9 +621,36 @@ def save_horarios() -> Response:
     }
     
     
-    Horario.actualizar_horarios(id_materia,diccionario_horarios)
+    Horarios.actualizar_horarios(id_materia,diccionario_horarios)
 
     flash("horarios modificados con exito","success")
+    return redirect(f"/horarios/{id_materia}")
+
+@app.route("/eliminar-horarios", methods = ["POST"])
+def eliminar_horarios() -> Response:
+    """
+    funcion que se encarga de eliminar un horario especifico
+
+    parametros:
+        no recibe
+
+    comportamiento:
+        - obtiene los datos traidos del formulario de eliminacion
+        - llama a la funcion eliminar_dia que se encarga de eliminar el dia de la base de datos
+        - redirige hacia /horarios/id_materia
+
+    retorna:
+        Response: de redireccionamiento
+    
+    """
+
+    
+    # recibimos los datos traidos del formulario #
+    id_horario = int(request.form["id_horario"])
+    id_materia = int(request.form["id_materia"])
+    dia = request.form["dia"]
+    horariosDb.eliminar_dia(id_horario,dia)
+    flash("horario eliminado con exito","success")
     return redirect(f"/horarios/{id_materia}")
 
 # ----------- FIN HORARIOS ------------ #
@@ -677,7 +717,7 @@ def crear_examen() -> Response:
     # insertamos el examen en la base de datos #
     examenDb.insertar_examen(id_materia,nombre,fecha,hora)
 
-    flash("examen agregado correctamente")
+    flash("examen agregado correctamente","success")
     return redirect(f"examenes/{id_materia}")
 
 
@@ -707,10 +747,7 @@ def realizar_examen() -> Response:
     # actualizamos el examen #
     examenDb.actualizar_estado_examen(id_examen,nota,estado_actual)
     
-    if estado_actual == 0:
-        flash("se realizo el examen correctamente")
-    else:
-        flash("se marco el examen como pendiente correctamente")
+    flash("se realizo el examen correctamente","success")
     return redirect(f"examenes/{id_materia}")
 
 
@@ -740,11 +777,25 @@ def marcar_examen_pendiente() -> Response:
     # actualizamos el examen #
     examenDb.actualizar_estado_examen(id_examen,None,estado_actual)
 
-    if estado_actual == 0:
-        flash("se realizo el examen correctamente")
-    else:
-        flash("se marco el examen como pendiente correctamente")
+
+    flash("se marco el examen como pendiente correctamente","success")
     return redirect(f"examenes/{id_materia}")
+
+
+@app.route("/eliminar-examen", methods = ["POST"])
+def eliminar_examen():
+    if "logueado" in session:
+        # recuperamos el id de el examen y de la materia #
+        id_examen = request.form["id_examen"]
+        id_materia = request.form["id_materia"]
+        # eliminamos el examen de la base de datos #
+        examenDb.eliminar_examen(id_examen)
+        flash("examen eliminado correctamente","success")
+        return redirect(f"/examenes/{id_materia}")
+    
+    flash("no esta logueado","error")
+    redirect("/login")
+
 
 # ------------- FIN EXAMEN ------------- #
 

@@ -43,26 +43,26 @@
         
         
 
-        <section class="form-container">
-            <form action="/crear-materia" method="POST" enctype="multipart/form-data">
+        <section class="form-container ">
+            <form action="/crear-materia" method="POST" enctype="multipart/form-data" class="hover-outline">
                 <h2>Cargar Nueva Materia</h2>
 
                 <div class="input-group">
                     <label>Nombre de la materia *</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" class="focus-outline" required>
                 </div>
 
                 <div class="input-group">
                     <label>Descripción (opcional)</label>
-                    <textarea name="descripcion" rows="4"></textarea>
+                    <textarea name="descripcion" rows="4" class="focus-outline"></textarea>
                 </div>
 
                 <div class="input-group">
                     <label>Carga semanal (horas) *</label>
-                    <input type="number" name="carga" min="1" required>
+                    <input type="number" name="carga" class="focus-outline" min="1" required>
                 </div>
 
-                <button type="submit" class="btn-guardar">
+                <button type="submit" class="btn-guardar pointer">
                     Guardar Materia
                 </button>
 

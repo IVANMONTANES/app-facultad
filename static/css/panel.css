@@ -1,96 +1,5 @@
-﻿* {
-    margin: 0;
-    border: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
+﻿
 
-:root {
-    font-family: sans-serif;
-    font-size: 16px;
-    /* VARIABLES CSS */
-    --color-header: #242424;
-    --color-header-h1: #fffafa;
-    --color-sombra-header: #000;
-    --fecha-color: #989797;
-    --fecha-color-hover: #aeaeae;
-    --hora-color: #3677e8;
-    --nav-color : #181818;
-    --body-color: #181818;
-    --flash-color-error: #d24;
-}
-
-.main-nav {
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 20px;
-    background-color: var(--nav-color);
-}
-
-.main-nav > ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.main-nav > ul > li {
-    list-style-type: none;
-    margin: 0 28px;
-}
-
-.main-nav > ul > li > a {
-    text-decoration: none;
-    color: var(--color-header-h1);
-    font-size: 1.15rem;
-    pad: 10px 0;
-}
-
-.main-nav > ul > li:hover {
-    background-color: var(--fecha-color);
-    border-radius: 10px;
-
-}
-
-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
-    padding: 30px;
-    height: 100px;
-    box-sizing: border-box;
-    background-color: var(--color-header);
-    box-shadow: 0 1px var(--color-sombra-header);
-}
-
-header > h1 {
-    color: var(--color-header-h1)
-}
-
-.fecha-hora {
-    position: absolute;
-    right: 40px;
-}
-
-.fecha {
-    color: var(--fecha-color);
-    font-weight: bold;
-    font-size: 21px;
-    margin-bottom: 3px;
-}
-
-.fecha:hover {
-    color: var(--fecha-color-hover);
-}
-
-.hora {
-    color: var(--hora-color);
-    text-align: right;
-    font-size: 18px;
-}
 
 body{
     min-height: 100vh;
@@ -103,20 +12,6 @@ main {
     flex-direction: column;
     min-height: calc(100vh - 180px);
 }
-
-.flash-message {
-    width: 80%;
-    margin: auto;
-    background-color: var(--flash-color-error);
-    color: #dff;
-    text-align: center;
-    padding: 14px 0;
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
 
 .cards-container {
     flex-grow: 1;

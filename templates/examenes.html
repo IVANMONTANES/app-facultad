@@ -27,28 +27,36 @@
     </header>
 
     <main>
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category,message in messages %}
+                    <div class="flash-wrapper">
+                        <div class="flash-message flash-{{ category}}">
+                            <p>{{ message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <!-- BOTÓN VOLVER -->
         <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
 
-        {% with messages = get_flashed_messages(with_categories = false) %}
-                {% if messages %}
-                    {% for message in messages %}
-                    <div class="flash-message">
-                        <p>{{ message }}</p>
-                    </div>   
-                    {% endfor %}
-                {% endif %}
-        {% endwith %}
+        
 
         <!-- SECCIÓN DE EXÁMENES -->
         <section class="examenes-section">
 
-            <div class="examenes-col">
+            <div class="examenes-col hover-outline">
                 <h2>Pendientes</h2>
                 <div class="examen-lista">
                     {% if examenes_pendientes %}
                         {% for examen in examenes_pendientes %}
                             <div class="examen pendiente">
+                                <form action="/eliminar-examen" method="post">
+                                    <input type="hidden" name="id_examen" value="{{ examen.id_examen }}">
+                                    <input type="hidden" name="id_materia" value="{{ examen.id_materia }}">
+                                    <input type="submit" value="X" class="eliminar-examen">
+                                </form>
                                 <h3>{{ examen.nombre }}</h3>
                                 <p><span>Fecha:</span> {{ examen.fecha }}</p>
                                 <p><span>Hora:</span> {{ examen.hora }}</p>
@@ -69,12 +77,17 @@
                 </div>
             </div>
 
-            <div class="examenes-col">
+            <div class="examenes-col hover-outline">
                 <h2>Realizados</h2>
                 <div class="examen-lista">
                     {% if examenes_realizados %}
                         {% for examen in examenes_realizados %}
                             <div class="examen realizado">
+                                <form action="/eliminar-examen" method="post">
+                                    <input type="hidden" name="id_examen" value="{{ examen.id_examen }}">
+                                    <input type="hidden" name="id_materia" value="{{ examen.id_materia }}">
+                                    <input type="submit" value="X" class="eliminar-examen">
+                                </form>
                                 <h3>{{ examen.nombre }}</h3>
                                 <p><span>Fecha:</span> {{ examen.fecha }}</p>
                                 <p><span>Hora:</span> {{ examen.hora }}</p>
@@ -108,28 +121,27 @@
         <!-- FORMULARIO -->
         <section class="form-container">
 
-            <form action="/guardar-examen" method="POST">
+            <form action="/guardar-examen" method="POST" class="hover-outline">
                 <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                 <h2>Cargar Examen de {{ materia.nombre }}</h2>
 
                 <div class="input-group">
                     <label>Nombre del examen *</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" class="focus-outline" required>
                 </div>
 
                 <div class="input-group">
                     <label>Fecha del examen *</label>
-                    <input type="date" name="fecha" required>
+                    <input type="date" name="fecha" class="focus-outline fecha-examen" required>
+                    <button class="boton-hoy pointer">HOY</button>
                 </div>
 
                 <div class="input-group">
                     <label>Hora del examen *</label>
-                    <input type="time" name="hora" required>
+                    <input type="time" name="hora" class="focus-outline" required>
                 </div>
 
-                <button type="submit" class="btn-guardar">
-                    Guardar Examen
-                </button>
+                <input type="submit" class="btn-guardar pointer" value="GUARDAR"></input>
 
             </form>
 

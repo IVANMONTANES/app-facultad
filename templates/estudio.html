@@ -29,24 +29,23 @@
 
     <main>
         <!-- Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories = false) %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
             {% if messages %}
-                {% for message in messages %}
+                {% for category,message in messages %}
                     <div class="flash-wrapper">
-                        <div class="flash-message">
+                        <div class="flash-message flash-{{ category}}">
                             <p>{{ message }}</p>
                         </div>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
         <!-- BOTÓN VOLVER -->
         <a href="/volver-materia/{{ materia.id_materia }}" class="btn-volver">Volver</a>
 
 
     <section class="estudios-section">
-        <div class="estudios-col">
+        <div class="estudios-col hover-outline">
             <h2>MEDIA SEMANAL</h2>
             <div class="estudio-lista">
                 {% if diccionario_semana %}   
@@ -54,7 +53,7 @@
                         <span >Los ultimos 7 dias estudio un total de: {{ media }}mins</span>
                     </div>
                     {% for dia,horas_estudiadas in diccionario_semana.items() %}
-                        <div class="dia no-seleccion" data-mins="{{ horas_estudiadas }}" data-formato="1" >
+                        <div class="dia no-seleccion hover-outline" data-mins="{{ horas_estudiadas }}" data-formato="1" >
                             <span class="nombre-dia">{{ dia }}</span>
                             <span class="minutos"> {{ horas_estudiadas }}mins</span>
                         </div>
@@ -66,18 +65,19 @@
 
         <!-- FORMULARIO DE HORAS DE ESTUDIO -->
         <section class="form-container">
-            <form action="/guardar-estudio" method="POST">
+            <form action="/guardar-estudio" method="POST" class="hover-outline">
                 <input type="hidden" name="id_materia" value="{{ materia.id_materia }}">
                 <h2>Cargar Horas de Estudio de {{ materia.nombre }}</h2>
                 
                 <div class="input-group">
                     <label for="minutos">Minutos de estudio</label>
-                    <input type="number" name="horas_estudio" id="minutos" min="0" placeholder="Ej: 90" required>
+                    <input type="number" name="horas_estudio" id="minutos" class="focus-outline" min="0" placeholder="Ej: 90" required>
                 </div>
 
                 <div class="input-group">
                     <label for="fecha">Fecha</label>
-                    <input type="date" name="fecha" id="fecha" required>
+                    <input type="date" name="fecha" id="fecha" class="focus-outline fecha-examen" required>
+                    <button class="boton-hoy pointer">HOY</button>
                 </div>
 
                 <input type="submit" class="btn-guardar" value="Guardar Horas">

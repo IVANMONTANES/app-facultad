@@ -26,23 +26,23 @@
     </header>
     
     <main>
-        {% with messages = get_flashed_messages(with_categories = false) %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
                 {% if messages %}
-                    {% for message in messages %}
-                    <div class="flash-message">
+                    {% for category,message in messages %}
+                    <div class="flash-message flash-{{ category }}">
                         <p>{{ message }}</p>
                     </div>   
                     {% endfor %}
                 {% endif %}
             {% endwith %}
         <section class="cards-container">
-            <div class="card">
+            <div class="card hover-outline">
                 <h3>Cargar Materia</h3>
                 <p>Agregar una nueva materia al sistema</p>
                 <a href="/cargar-materia" class="card-btn">Ir</a>
             </div>
 
-            <div class="card">
+            <div class="card hover-outline">
                 <h3>Ver Materias</h3>
                 <p>Consultar materias ya registradas</p>
                 <a href="/ver-materias" class="card-btn">Ir</a>

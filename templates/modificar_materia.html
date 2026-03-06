@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Materia</title>
     <link rel="stylesheet" href="../static/css/modificar_materia.css">
+    <link rel="stylesheet" href="../static/css/base.css">
 </head>
 <body>
 
@@ -30,37 +31,38 @@
 
     <!-- MAIN -->
     <main>
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category,message in messages %}
+                    <div class="flash-wrapper">
+                        <div class="flash-message flash-{{ category}}">
+                            <p>{{ message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <!-- BOTÓN VOLVER -->
         <a href="/ver-materias" class="btn-volver">Volver</a>
 
-        <!-- FLASH MESSAGES -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div class="flash-wrapper">
-                {% for message in messages %}
-                    <div class="flash-message">{{ message }}</div>
-                {% endfor %}
-            </div>
-            {% endif %}
-        {% endwith %}
 
         <!-- FORMULARIO -->
         <div class="form-container">
             <h2>EDITAR {{ materia.nombre }}</h2>
-            <form action="/actualizar-materia/{{ materia.id_materia }}" method="POST" class="form-modificar">
+            <form action="/actualizar-materia/{{ materia.id_materia }}" method="POST" class="form-modificar hover-outline">
                 <div class="input-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" value="{{ materia.nombre }}" class="nombre-input" required>
+                    <input type="text" name="nombre" id="nombre" class="focus-outline nombre-input" value="{{ materia.nombre }}"  required>
                 </div>
                 <div class="input-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" rows="3" class="descripcion-textArea" required>{{ materia.descripcion }}</textarea>
+                    <textarea name="descripcion" id="descripcion" class="focus-outline descripcion-textArea" rows="3" required>{{ materia.descripcion }}</textarea>
                 </div>
                 <div class="input-group">
                     <label for="carga">Carga Horaria</label>
-                    <input type="number" name="carga" id="carga" value="{{ materia.carga }}" class="carga-input" required>
+                    <input type="number" name="carga" id="carga" class="focus-outline carga-input" value="{{ materia.carga }}" required>
                 </div>
-                <button type="submit" class="btn-guardar">Modificar Materia</button>
+                <input type="submit" class="btn-guardar" value="Modificar Materia"></input>
             </form>
         </div>
 
@@ -68,7 +70,7 @@
         <div class="materias-comparativa">
             <!-- Materia Original -->
             <!-- Nombre de la materia -->
-            <div class="materia-card">
+            <div class="materia-card hover-outline">
                     <!-- Nombre de la materia -->
                     <h3 class="materia-nombre">{{ materia.nombre }}</h3>
 
@@ -84,11 +86,17 @@
                         <p>{{ materia.carga }} hs</p>
                     </div>
 
+                    <div class="materia-opciones">
+                        <div href="/materia/{{ materia.id_materia }}" class="ver pointer">👀 Ver</div>
+                        <div href="/eliminar-materia/{{ materia.id_materia }}" class=" eliminar pointer">🗑 Eliminar</div>
+                        <div href="/modificar-materia-pagina/{{ materia.id_materia }}" class="modificar pointer">✏ Modificar</div>
+                    </div>
+
                 </a>
             </div>
             
             <!-- Materia Vista Previa -->
-            <div class="materia-card">
+            <div class="materia-card hover-outline">
                     <!-- Nombre de la materia -->
                     <h3 class="materia-nombre materia-nombre-modificar">{{ materia.nombre }}</h3>
 
@@ -102,6 +110,12 @@
                     <div class="materia-info">
                         <strong>Carga semanal:</strong>
                         <p class="materia-carga-modificar">{{ materia.carga }} hs</p>
+                    </div>
+
+                    <div class="materia-opciones">
+                        <div href="/materia/{{ materia.id_materia }}" class="ver pointer">👀 Ver</div>
+                        <div href="/eliminar-materia/{{ materia.id_materia }}" class=" eliminar pointer">🗑 Eliminar</div>
+                        <div href="/modificar-materia-pagina/{{ materia.id_materia }}" class="modificar pointer">✏ Modificar</div>
                     </div>
 
                 </a>

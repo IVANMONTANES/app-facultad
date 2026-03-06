@@ -32,8 +32,8 @@
         {% with messages = get_flashed_messages(with_categories = true) %}
             {% if messages %}
                 {% for category,message in messages %}
-                    <div class="flash-wrapper ">
-                        <div class="flash-message flash-{{ category }}">
+                    <div class="flash-wrapper">
+                        <div class="flash-message flash-{{ category}}">
                             <p>{{ message }}</p>
                         </div>
                     </div>
@@ -46,10 +46,16 @@
         <!-- SECCION DE HORARIOS EXISTENTES -->
         
             <section class="horarios-actuales">
-                <h2>Horarios Cargados</h2>
+                <h2>Horarios Cargados De {{ materia.nombre }}</h2>
                 <div class="dias-horarios">
-                    {% for dia,hora in horarios.items() %}
-                    <div class="dia-horario">
+                    {% for dia,hora in horarios_diccionario.items() %}
+                    <div class="dia-horario hover-outline">
+                        <form action="/eliminar-horarios" method="post">
+                        <input type="hidden" name="id_horario" value="{{ horarios.id_horario }}">
+                        <input type="hidden" name="id_materia" value=" {{ materia.id_materia }} ">
+                        <input type="hidden" name="dia" value=" {{ dia }} ">
+                        <input type="submit" value="X" class="eliminar-horarios">
+                    </form>
                         <strong>{{ dia }}:</strong> {{ hora }}
                     </div>
                     {% endfor %}
@@ -68,7 +74,7 @@
                     <div class="input-group">
                         <label>{{ dia }}</label>
                         
-                        <input type="text" name="{{ dia | lower }}" placeholder="Ej: 8:00-10:00">
+                        <input type="text" name="{{ dia | lower }}" class="focus-outline" placeholder="Ej: 8:00-10:00">
                     </div>
                     {% endfor %}
                 </div>
