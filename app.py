@@ -429,7 +429,9 @@ def volver_a_materia(id_materia) -> None:
 
 @app.errorhandler(404)
 def page_not_found(e):
-    flash("pagina no encontrada","error")
+    if not request.path.startswith('/static/') and not request.path.endswith(('.ico', '.png', '.jpg', '.js', '.css', '.woff', '.woff2', '.ttf')):
+        flash("pagina no encontrada","error")
+
     if "logueado" in session:
         return redirect("/panel")
     return redirect("/login")
