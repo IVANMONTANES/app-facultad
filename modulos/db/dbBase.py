@@ -3,7 +3,7 @@ import os
 
 # creamos la carpeta database si no existe #
 def crear_database():
-    os.makedirs("database",exist_ok=True)
+    os.makedirs("/tmp/database",exist_ok=True)
 
 # funcion global que crea todas las tablas #
 def crear_tablas() -> None:

@@ -32,7 +32,9 @@ load_dotenv_clean()
 # cargamos las variables declaradas en el archivo .env como variables de entorno #
 load_dotenv()
 
-
+dbBase.crear_database()
+dbBase.crear_tablas()
+Email.notificar_examenes_proximos()
 
 
 app = Flask(__name__)
@@ -428,12 +430,16 @@ def volver_a_materia(id_materia) -> None:
 @app.errorhandler(404)
 def page_not_found(e):
     flash("pagina no encontrada","error")
-    return redirect("/")
+    if "logueado" in session:
+        return redirect("/panel")
+    return redirect("/login")
 
 @app.errorhandler(405)
 def not_allow_page(e):
     flash("pagina no permitida","error")
-    return redirect("/")
+    if "logueado" in session:
+        return redirect("/panel")
+    return redirect("/login")
 
 # ------------------------ FIN FUNCIONES ASOCIADAS A MANEJAR RUTAS PROBLEMATICAS ------------------------------  #
 
@@ -813,11 +819,3 @@ def eliminar_examen():
 # ------------- FIN EXAMEN ------------- #
 
 #-------------------- FIN FUNCIONES QUE PROCESAN DATOS -----------------------#
-
-
-
-if __name__ == "__main__":
-    dbBase.crear_database()
-    dbBase.crear_tablas()
-    Email.notificar_examenes_proximos()
-    app.run(debug=False) 

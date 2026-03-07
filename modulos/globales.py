@@ -9,4 +9,4 @@ horarios_no_cargados = {
     "Domingo": "No se cargo ningun horario",
 }
 
-rutadb = "/tmp/base_datos.db"
+rutadb = "/tmp/database/base_datos.db"
