@@ -823,3 +823,6 @@ def eliminar_examen():
 #-------------------- FIN FUNCIONES QUE PROCESAN DATOS -----------------------#
 
 
+if __name__ == "__main__":
+    
+    app.run(debug=False)

@@ -86,3 +86,13 @@ input[type="submit"] {
     }
 }
 
+@media (max-width: 520px) {
+    form {
+        margin-top: 0;
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+}
+
