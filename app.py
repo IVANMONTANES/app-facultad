@@ -32,8 +32,9 @@ load_dotenv_clean()
 # cargamos las variables declaradas en el archivo .env como variables de entorno #
 load_dotenv()
 
-
-
+dbBase.crear_database()
+dbBase.crear_tablas()
+Email.notificar_examenes_proximos()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -821,8 +822,3 @@ def eliminar_examen():
 #-------------------- FIN FUNCIONES QUE PROCESAN DATOS -----------------------#
 
 
-if __name__ == "__main__":
-    dbBase.crear_database()
-    dbBase.crear_tablas()
-    Email.notificar_examenes_proximos()
-    app.run(debug=False)
