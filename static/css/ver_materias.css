@@ -107,32 +107,6 @@ main {
         );
 }
 
-
-@media (max-width: 1180px) {
-    header {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .fecha-hora {
-       display: none;
-    }
-}
-
-
-@media (max-width: 750px) {
-    .materias-container {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: nowrap;
-    }
-
-    .materia-card {
-        width: 90%;
-    }
-}
 /* =========================
    FLASH MESSAGES
 ========================= */
@@ -164,4 +138,32 @@ main {
 @keyframes flashFade {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (max-width: 1180px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .fecha-hora {
+       display: none;
+    }
+}
+
+
+@media (max-width: 750px) {
+    .materias-container {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .materia-card {
+        width: 90%;
+    }
 }

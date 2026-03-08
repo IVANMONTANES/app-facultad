@@ -228,3 +228,31 @@ document.addEventListener("DOMContentLoaded", () => {
         fecha_examen.value = fecha;
     })
 })
+
+
+// MENU HAMBURGUESA //
+document.addEventListener("DOMContentLoaded", () => {
+    // obtenemos los botones //
+    let boton_desplegar = document.querySelector(".desplegar-menu");
+    let boton_cerrar = document.querySelector(".cerrar-menu")
+    boton_desplegar.addEventListener("click",() => {
+        // obtenemos el nav //
+        let nav = document.querySelector(".main-nav");
+        // removemos la clase ocultado para que se empieze a mostrar el boton //
+        boton_cerrar.classList.remove("ocultado")
+        // agregamos la clase aplicar-flex para que se empieze a mostrar el nav //
+        nav.classList.add("aplicar-flex")
+    })
+
+    boton_cerrar.addEventListener("click",() => {
+        // obtenemos el nav //
+        let nav = document.querySelector(".main-nav");
+        // quitamos la clase aplicar-flex para que no se muestre //
+        nav.classList.remove("aplicar-flex")
+        // agregamos la clase ocultado para que se deje de mostrar el nav //
+        nav.classList.add("ocultado")
+        
+        // agregamos la clase ocultado para que se deje de mostrar el boton //
+        boton_cerrar.classList.add("ocultado")
+    })
+})

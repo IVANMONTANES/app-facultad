@@ -43,6 +43,15 @@
     outline: 2px solid var(--hora-color);
 }
 
+.desplegar-menu {
+    background-color: transparent;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: var(--hora-color);
+    color: var(--color-header-h1);
+    padding: 0 10px;
+}
+
 .main-nav {
     height: 80px;
     display: flex;
@@ -161,4 +170,84 @@ header > h1 {
 
 .flash-success {
     background-color: var(--flash-color-success);
+}
+
+.ocultado {
+    display: none !important;
+}
+
+.aplicar-flex {
+    display: flex !important;
+}
+
+@media (max-width: 600px){
+    .main-nav {
+        display: none;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        height: auto;
+        z-index: 1;
+        padding: 0;
+    }
+
+    .main-nav > ul {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .main-nav > ul > li {
+        width: 100%;
+        margin: 0;
+        border-radius: 0 !important;
+        height: 20vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .main-nav > ul > li:hover {
+      background-color: transparent;  
+    }
+
+    .main-nav > ul > li > a {
+        font-size: 1.37rem;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    header {
+        position: relative;
+        height: 120px;
+        padding: 30px 30px 60px 30px;
+    }
+
+    .desplegar-menu {
+        display: block !important;
+        width: 100%;
+        position: absolute;
+        bottom:0;
+    }
+
+    .cerrar-menu {
+        display: inline-block;
+        position: fixed;
+        top: 20px;
+        right: 15px;
+        z-index: 2;
+        background-color: var(--color-eliminar);
+        font-size: 1.8rem;
+        color: var(--color-header-h1);
+        padding: 8px 19px;
+        border-radius: 8px;
+    }
+
 }
