@@ -37,6 +37,8 @@ dbBase.crear_database()
 dbBase.crear_tablas()
 Email.notificar_examenes_proximos()
 
+
+
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
@@ -822,7 +824,3 @@ def eliminar_examen():
 
 #-------------------- FIN FUNCIONES QUE PROCESAN DATOS -----------------------#
 
-
-if __name__ == "__main__":
-    
-    app.run(debug=False)

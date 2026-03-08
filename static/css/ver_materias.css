@@ -167,3 +167,15 @@ main {
         width: 90%;
     }
 }
+
+
+@media (max-width: 600px) {
+    .materia-opciones {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .materia-opciones > a {
+        width: 100% !important;
+    }
+}

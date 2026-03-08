@@ -192,3 +192,17 @@ form > h2 {
        display: none;
     }
 }
+
+@media (max-width: 500px) {
+    .estudios-col {
+        width: 100%;
+    }
+
+    .form-container > form {
+        width: 100%;
+    }
+
+    .boton-hoy {
+        width: 70px;
+    }
+}

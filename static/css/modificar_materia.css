@@ -28,7 +28,7 @@ main {
 }
 
 .form-container > form {
-    width: 35%;
+    width: 450px;
     background-color: var(--color-header);
     border-radius: 8px;
     padding: 37px 22px;
@@ -78,6 +78,8 @@ input[type="submit"] {
 
 .materias-comparativa {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -151,4 +153,40 @@ input[type="submit"] {
 
 .modificar {
     background-color: var(--color-modificar);
+}
+
+@media (max-width: 1180px) {
+    header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fecha-hora {
+       display: none;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .form-container > form {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+
+    .materia-card {
+        width: 100%;
+        border-radius: 0;
+        box-sizing: border-box;
+    }
+
+    .materia-opciones {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .materia-opciones > div {
+        width: 100%;
+    }
 }
