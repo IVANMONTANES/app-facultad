@@ -32,6 +32,7 @@ load_dotenv_clean()
 # cargamos las variables declaradas en el archivo .env como variables de entorno #
 load_dotenv()
 
+
 dbBase.crear_database()
 dbBase.crear_tablas()
 Email.notificar_examenes_proximos()

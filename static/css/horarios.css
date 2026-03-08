@@ -197,3 +197,38 @@ main {
        display: none;
     }
 }
+
+@media (max-width: 520px) {
+    .horarios-actuales {
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+
+    
+    .dia-horario {
+        display: flex;
+        align-items: center;
+    }
+
+    .dia-horario > p {
+        display: inline-block;
+        width:80%;
+    }
+
+    .eliminar-horarios {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 0 8px 8px 0;
+        width: 50px;
+        box-sizing: border-box;
+    }
+
+    .formulario-horarios {
+        min-width: 0;
+        width: 100%;
+        border-radius: 0;
+    }
+}
